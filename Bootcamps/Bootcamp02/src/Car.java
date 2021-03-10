@@ -15,14 +15,8 @@ public class Car {
         return this.carModel;
     }
 
-    // Task 3
-    public String getCarDescription() {
-        String carDescription = getCarMaker() + " " + getCarModel();
-        return carDescription;
-    }
-
     // Task 4
-    public String getCarsDescription() {
+    public String getCarDescription() {
         String carsDescription = "Maker:" + getCarMaker() + " and Model:" + getCarModel();
         return carsDescription;
     }

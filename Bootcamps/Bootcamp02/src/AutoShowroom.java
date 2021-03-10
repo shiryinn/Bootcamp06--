@@ -9,10 +9,11 @@ public class AutoShowroom {
         Car car2 = new Car("Audi", "A8");
         Car car3 = new Car("Mercedes", "GLS");
         // Task 3
+        /* test cases for task 3
         System.out.println(car1.getCarDescription());
         System.out.println(car2.getCarDescription());
         System.out.println(car3.getCarDescription());
-
+        */
         createCars();
         displayCars();
         System.out.println("Thank you for visiting FIT2099 Showroom");
@@ -27,7 +28,7 @@ public class AutoShowroom {
 
     public void displayCars() {
         for(int i = 0; i < cars.length; i++) {
-            String carsDesc = "Car (" + (i+1) + ") " + cars[i].getCarsDescription();
+            String carsDesc = "Car (" + (i+1) + ") " + cars[i].getCarDescription();
             System.out.println(carsDesc);
         }
     }
