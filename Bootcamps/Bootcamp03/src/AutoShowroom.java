@@ -1,3 +1,4 @@
+import java.text.DateFormat;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,7 +16,7 @@ public class AutoShowroom {
     //private ArrayList<Buyer> buyersRec = new ArrayList<>();
     //private ArrayList<Integer> buyerIds = new ArrayList<>();
 
-    public void printStatus() {
+    public void printStatus() throws ParseException {
         System.out.println("Welcome to FIT2099 Showroom");
 
         Car car1 = new Car("BMW", "X7");
@@ -48,7 +49,7 @@ public class AutoShowroom {
     */
 
 
-    public void createCars() {
+    public void createCars() throws ParseException {
         Car car1 = new Car("BMW", "X7");
         Car car2 = new Car("Audi", "A8");
         Car car3 = new Car("Mercedes", "GLS");
@@ -63,12 +64,16 @@ public class AutoShowroom {
         Buyer buyer2 = new Buyer(2, "John", "Dell");
         Buyer buyer3 = new Buyer(3, "Andy", "Sam");
         // Create bids
-        Bid bid1 = new Bid(1, buyer1, 150000.00, "07-05-2020");
-        Bid bid2 = new Bid(2, buyer2, 120000.00, "04-03-2020");
+        DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+        Date newBidDate1 = dateFormatter.parse("07-05-2019");
+        Date newBidDate2 = dateFormatter.parse("04-03-2020");
+        Bid bid1 = new Bid(1, buyer1, 150000.00, newBidDate1);
+        Bid bid2 = new Bid(2, buyer2, 120000.00, newBidDate2);
         // Add bids
-        //car1.addBid(buyer1, 50000.00, "07-05-2020");
-        //car1.addBid(buyer2, 15000.00, "04-03-2020");
-        //car3.addBid(buyer3, 15000.00, "04-03-2020");
+        car1.addBid(buyer1, 50000.00, newBidDate1);
+        car2.addBid(buyer2, 15000.00, newBidDate2);
+        car2.addBid(buyer2, 20000.00, newBidDate1);
+        car3.addBid(buyer3, 15000.00, newBidDate2);
 
     }
 
@@ -77,16 +82,18 @@ public class AutoShowroom {
             String carsDesc = "Car (" + (i+1) + ") " + cars.get(i).description();
             System.out.println(carsDesc);
 
+            // display the lists of bids and buyers
             ArrayList<Bid> bidsCar = cars.get(i).getBids();
             for (Bid currentBid : bidsCar) {
                 Buyer bidBuyer = currentBid.getBuyer();
                 // change date format
-                Format reformatDate = new SimpleDateFormat("EE dd/MM/yyyy");
+                Format reformatDate = new SimpleDateFormat("dd/MM/yyyy");
                 String bidDate = reformatDate.format(currentBid.getBidDate());
-                System.out.println(" Bid " + currentBid.getBidId() + ": \n * Buyer's ID: "
-                        + bidBuyer.getBuyerId() + "\n * Buyer's Name: " + bidBuyer.getGivenName()
-                        + " " + bidBuyer.getFamilyName() + "\n * Bid's Price: $"
-                        + String.format("%.2f", currentBid.getBidPrice()) + "\n * Bid's Date: " + bidDate);
+                String buyerBidDesc = "Bid " + currentBid.getBidId() + ": \n----------------------------" +"\nBuyer's ID: "
+                        + bidBuyer.getBuyerId() + "\nBuyer's Name: " + bidBuyer.getGivenName()
+                        + " " + bidBuyer.getFamilyName() + "\nBid's Price: $"
+                        + String.format("%.2f", currentBid.getBidPrice()) + "\nBid's Date: " + bidDate + "\n----------------------------";
+                System.out.println(buyerBidDesc);
             }
         }
     }
