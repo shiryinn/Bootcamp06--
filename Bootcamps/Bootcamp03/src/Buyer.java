@@ -16,7 +16,7 @@ public class Buyer {
     }
 
     // Additional comments use “givenName” and “familyName” rather than “firstName” and “lastName”
-    //
+    // Using firstName and lastName might be confusing while comparing to givenName and familyName, we clearly know about what they mean.
 
     public void setGivenName(String newGivenName) {
         this.givenName = newGivenName;
