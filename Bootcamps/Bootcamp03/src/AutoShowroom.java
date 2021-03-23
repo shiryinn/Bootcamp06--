@@ -57,7 +57,6 @@ public class AutoShowroom {
         cars.add(1, car2);
         cars.add(2, car3);
 
-
         // test cases for Task 5
         // Create buyers
         Buyer buyer1 = new Buyer(1, "Ashley", "Kristin");
