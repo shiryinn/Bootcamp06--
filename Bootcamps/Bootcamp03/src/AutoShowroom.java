@@ -185,7 +185,9 @@ public class AutoShowroom {
         bidCarPrice = inputBidPrice();
         bidDate = inputBidDate();
 
-        /*
+    }
+
+    /*
         // Task 7
         // Check if there's duplicates buyer's Id
         //While setting the check to be true, it will then loop through the while loop and go to the if loop. The if loop basically works
@@ -205,6 +207,5 @@ public class AutoShowroom {
         }
         // Add bid on a car
         bidsCar.addBid(newBuyer, bidCarPrice, bidDate);
-        */
-    }
+     */
 }
