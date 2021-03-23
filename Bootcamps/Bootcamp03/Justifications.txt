@@ -1,0 +1,1 @@
+Bootcamp3Name: Lim Shir YinStudent ID: 31059546Email: slim0098@student.monash.eduJustificationsAdvantages of using numeric integer type:-Disadvantages of using numeric integer type:Advantages of using Java string:Disadvantages of using Java string:
