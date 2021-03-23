@@ -187,15 +187,14 @@ public class AutoShowroom {
 
         /*
         // Task 7
-        // Create new buyer after enter the details into console
-        //Buyer newBuyer = new Buyer(buyerId, givenName, famName);
-
         // Check if there's duplicates buyer's Id
-        /* While setting the check to be true, it will then loop through the while loop and go to the if loop. The if loop basically works
+        //While setting the check to be true, it will then loop through the while loop and go to the if loop. The if loop basically works
         the buyerIds ArrayList which is implemented and check if the new buyer's id exists in the arrayList. Iƒ there is not repeated Id,
         it will then add into buyersRec which is another arrayList created for recording the buyers and buyerIds will immediately add
         the new buyer id into it as well using arraylist add operations. The while loop will terminates with check = false.
-        Pseudocode: (idea)
+        //Pseudocode: (idea)
+        // Create new buyer after enter the details into console
+        Buyer newBuyer = new Buyer(buyerId, givenName, famName);
         boolean check = true;
         while (check) {
             if (!buyerIds.contains(newBuyer.getBuyerId())) {
