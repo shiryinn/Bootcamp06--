@@ -180,6 +180,8 @@ public class AutoShowroom {
 
         // Create new buyer after enter the details into console
         Buyer newBuyer = new Buyer(buyerId, givenName, famName);
+
+        // Check if there's repeated buyer's Id
         boolean check = true;
         while (check) {
             if (!buyerIds.contains(newBuyer.getBuyerId())) {
