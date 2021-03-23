@@ -84,10 +84,10 @@ public class AutoShowroom {
                 // change date format
                 Format reformatDate = new SimpleDateFormat("EE dd/MM/yyyy");
                 String bidDate = reformatDate.format(currentBid.getBidDate());
-                System.out.println(" Bid " + currentBid.getBidId() + ": \n * Buyer ID: "
-                        + bidBuyer.getBuyerId() + "\n * Buyer Name: " + bidBuyer.getGivenName()
-                        + " " + bidBuyer.getFamilyName() + "\n * Bid Price: $"
-                        + String.format("%.2f", currentBid.getBidPrice()) + "\n * Bid Date: " + bidDate);
+                System.out.println(" Bid " + currentBid.getBidId() + ": \n * Buyer's ID: "
+                        + bidBuyer.getBuyerId() + "\n * Buyer's Name: " + bidBuyer.getGivenName()
+                        + " " + bidBuyer.getFamilyName() + "\n * Bid's Price: $"
+                        + String.format("%.2f", currentBid.getBidPrice()) + "\n * Bid's Date: " + bidDate);
             }
         }
     }
