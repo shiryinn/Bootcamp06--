@@ -140,13 +140,13 @@ public class AutoShowroom {
     public static double inputBidPrice(){
         // initialise bid price to 0
         double buyerBidPrice = 0;
-        boolean checkCond = true;
-        while (checkCond) {
+        boolean check = true;
+        while (check) {
             try {
                 Scanner scanBidPrice = new Scanner(System.in);
                 System.out.print("Buyer's bid price: ");
                 buyerBidPrice = scanBidPrice.nextDouble();
-                checkCond = false;
+                check = false;
             }
             catch (Exception e) {
                 System.out.println("Please enter a valid bid price");
@@ -159,13 +159,13 @@ public class AutoShowroom {
     public static int inputId(){
         // initialise buyerId to 0
         int buyerId = 0;
-        boolean checkCond = true;
-        while (checkCond) {
+        boolean check = true;
+        while (check) {
             try {
                 Scanner scanBuyerId = new Scanner(System.in);
                 System.out.print("Buyer's ID: ");
                 buyerId = scanBuyerId.nextInt();
-                checkCond = false;
+                check = false;
             }
             catch (Exception e) {
                 System.out.println("Please enter a valid ID");
@@ -179,15 +179,15 @@ public class AutoShowroom {
         // initialise date to null
         Date buyerBidDate = null;
         SimpleDateFormat reformatDate = new SimpleDateFormat("dd/MM/yyyy");
-        boolean checkCond = true;
-        while (checkCond) {
+        boolean check = true;
+        while (check) {
             try {
                 // make sure dates enter are valid
                 reformatDate.setLenient(false);
                 Scanner scanBidDate = new Scanner(System.in);
                 System.out.print("Bid date: ");
                 buyerBidDate = reformatDate.parse(scanBidDate.next());
-                checkCond = false;
+                check = false;
             }
             catch (ParseException e) {
                 System.out.println("Please enter a valid date in the format dd/MM/yyyy");
