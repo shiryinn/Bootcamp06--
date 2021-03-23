@@ -63,8 +63,8 @@ public class AutoShowroom {
         Buyer buyer2 = new Buyer(2, "John", "Dell");
         Buyer buyer3 = new Buyer(3, "Andy", "Sam");
         // Create bids
-        //Bid bid1 = new Bid(1, buyer1, 150000.00, "07-05-2020");
-        //Bid bid2 = new Bid(2, buyer2, 120000.00, "04-03-2020");
+        Bid bid1 = new Bid(1, buyer1, 150000.00, "07-05-2020");
+        Bid bid2 = new Bid(2, buyer2, 120000.00, "04-03-2020");
         // Add bids
         //car1.addBid(buyer1, 50000.00, "07-05-2020");
         //car1.addBid(buyer2, 15000.00, "04-03-2020");
