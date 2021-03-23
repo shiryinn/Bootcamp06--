@@ -130,7 +130,7 @@ public class AutoShowroom {
     }
 
     // Buyer's input ID
-    public static int inputId(){
+    public static int inputBuyerId(){
         // initialise buyerId to 0
         int buyerId = 0;
         boolean check = true;
@@ -181,7 +181,7 @@ public class AutoShowroom {
         String[] buyerName = inputBuyerName();
         givenName = buyerName[0];
         famName = buyerName[1];
-        buyerId = inputId();
+        buyerId = inputBuyerId();
         bidCarPrice = inputBidPrice();
         bidDate = inputBidDate();
 
