@@ -9,8 +9,11 @@ public class AutoShowroom {
 
     // Create an ArrayList car object
     private ArrayList<Car> cars = new ArrayList<>();
-    private ArrayList<Buyer> buyersRec = new ArrayList<>();
-    private ArrayList<Integer> buyerIds = new ArrayList<>();
+
+    // Task 7
+    // Implementing two arrayList to avoid duplicates
+    //private ArrayList<Buyer> buyersRec = new ArrayList<>();
+    //private ArrayList<Integer> buyerIds = new ArrayList<>();
 
     public void printStatus() {
         System.out.println("Welcome to FIT2099 Showroom");
@@ -37,9 +40,13 @@ public class AutoShowroom {
         return this.cars;
     }
 
+    // Task 7
+    /*
     public ArrayList<Buyer> getBuyers() {
         return this.buyersRec;
     }
+    */
+
 
     public void createCars() {
         Car car1 = new Car("BMW", "X7");
@@ -178,16 +185,17 @@ public class AutoShowroom {
         bidCarPrice = inputBidPrice();
         bidDate = inputBidDate();
 
-        // Create new buyer after enter the details into console
-        Buyer newBuyer = new Buyer(buyerId, givenName, famName);
-
+        /*
         // Task 7
+        // Create new buyer after enter the details into console
+        //Buyer newBuyer = new Buyer(buyerId, givenName, famName);
+
         // Check if there's duplicates buyer's Id
         /* While setting the check to be true, it will then loop through the while loop and go to the if loop. The if loop basically works
         the buyerIds ArrayList which is implemented and check if the new buyer's id exists in the arrayList. Iƒ there is not repeated Id,
         it will then add into buyersRec which is another arrayList created for recording the buyers and buyerIds will immediately add
         the new buyer id into it as well using arraylist add operations. The while loop will terminates with check = false.
-         */
+        Pseudocode: (idea)
         boolean check = true;
         while (check) {
             if (!buyerIds.contains(newBuyer.getBuyerId())) {
@@ -196,8 +204,8 @@ public class AutoShowroom {
                 check = false;   // while loop terminates
             }
         }
-
         // Add bid on a car
         bidsCar.addBid(newBuyer, bidCarPrice, bidDate);
+        */
     }
 }
