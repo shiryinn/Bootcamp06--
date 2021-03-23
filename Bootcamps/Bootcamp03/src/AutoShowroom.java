@@ -26,7 +26,7 @@ public class AutoShowroom {
         */
         createCars();
         displayCars();
-        // To run the console
+        // It terminates after the third time calling console
         buyerAndBidDetails(cars.get(0));
         buyerAndBidDetails((cars.get(1)));
         buyerAndBidDetails((cars.get(2)));
