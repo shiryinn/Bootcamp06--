@@ -15,25 +15,28 @@ public class Buyer {
         this.familyName = newFamilyName;
     }
 
-    public void setGivenName(String givenName) {
-        this.givenName = givenName;
+    public void setGivenName(String newGivenName) {
+        this.givenName = newGivenName;
     }
 
-    public void setFamilyName(String familyName) {
-        this.familyName = familyName;
+    public void setFamilyName(String newFamilyName) {
+        this.familyName = newFamilyName;
     }
 
     public String getGivenName() {
-        return givenName;
+        return this.givenName;
     }
 
     public String getFamilyName() {
-        return familyName;
+        return this.familyName;
+    }
+
+    public int getBuyerId() {
+        return this.buyerId;
     }
 
     // accessor method
     public String description() {
-        String buyerDesc = "Buyer ID: " + buyerId + " Buyer Name: " + getGivenName() + getFamilyName();
-        return buyerDesc;
+        return this.buyerId + " " + getGivenName() + " " + getFamilyName();
     }
 }
