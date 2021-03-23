@@ -16,7 +16,7 @@ public class Car {
         return this.carModel;
     }
 
-    public String getCarDescription() {
+    public String description() {
         // Task 3
         //String carDescription = getCarMaker() + getCarModel();
         // Task 4
@@ -24,4 +24,3 @@ public class Car {
         return carDescription;
     }
 }
-
