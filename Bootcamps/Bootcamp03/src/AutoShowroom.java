@@ -27,8 +27,8 @@ public class AutoShowroom {
         createCars();
         displayCars();
         // To run the console
-        createBidAndBuyer(cars.get(0));
-        createBidAndBuyer((cars.get(1)));
+        buyerAndBid(cars.get(0));
+        buyerAndBid((cars.get(1)));
         System.out.println("Thank you for visiting FIT2099 Showroom");
     }
 
@@ -49,20 +49,19 @@ public class AutoShowroom {
         cars.add(1, car2);
         cars.add(2, car3);
 
-        /*
-         // test cases for Task 5
-         // Create buyers
-         Buyer buyer1 = new Buyer(1, "Ashley", "Kristin");
-         Buyer buyer2 = new Buyer(2, "John", "Dell");
-         Buyer buyer3 = new Buyer(3, "Andy", "Sam");
-         // Create bids
-         Bid bid1 = new Bid(1, buyer1, 50000.00, "07-05-2020");
-         Bid bid2 = new Bid(2, buyer2, 120000.00, "04-03-2020");
-         // Add bids
-         car1.addBid(buyer1, 50000.00, "07-05-2020");
-         car1.addBid(buyer2, 15000.00, "04-03-2020");
-         car3.addBid(buyer3, 15000.00, "04-03-2020");
-         */
+
+        // test cases for Task 5
+        // Create buyers
+        Buyer buyer1 = new Buyer(1, "Ashley", "Kristin");
+        Buyer buyer2 = new Buyer(2, "John", "Dell");
+        Buyer buyer3 = new Buyer(3, "Andy", "Sam");
+        // Create bids
+        //Bid bid1 = new Bid(1, buyer1, 150000.00, "07-05-2020");
+        //Bid bid2 = new Bid(2, buyer2, 120000.00, "04-03-2020");
+        // Add bids
+        //car1.addBid(buyer1, 50000.00, "07-05-2020");
+        //car1.addBid(buyer2, 15000.00, "04-03-2020");
+        //car3.addBid(buyer3, 15000.00, "04-03-2020");
 
     }
 
@@ -88,7 +87,7 @@ public class AutoShowroom {
     }
 
     // Task 6 - creation of Bid and Buyer objects
-    private void createBidAndBuyer(Car bidsCar) {
+    private void buyerAndBid(Car bidsCar) {
         String givenName;
         String famName;
         int buyerId;
@@ -103,11 +102,11 @@ public class AutoShowroom {
         bidCarPrice = inputBidPrice();
         bidDate = inputBidDate();
 
-        // create new buyer
+        // Create new buyer
         Buyer newBuyer = new Buyer(buyerId, givenName, famName);
         buyerRec(newBuyer);
 
-        // add bid on a car
+        // Add bid on a car
         bidsCar.addBid(newBuyer, bidCarPrice, bidDate);
     }
 
