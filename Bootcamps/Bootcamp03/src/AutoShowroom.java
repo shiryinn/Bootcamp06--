@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class AutoShowroom {
 
-    // Create an ArrayList cars object
+    // Create an ArrayList car object
     private ArrayList<Car> cars = new ArrayList<Car>();
 
     public void printStatus() {
@@ -26,6 +26,7 @@ public class AutoShowroom {
         Car car1 = new Car("BMW", "X7");
         Car car2 = new Car("Audi", "A8");
         Car car3 = new Car("Mercedes", "GLS");
+        // add element into car ArrayList by add operation
         cars.add(0, car1);
         cars.add(1, car2);
         cars.add(2, car3);
