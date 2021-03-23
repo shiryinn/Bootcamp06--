@@ -15,6 +15,9 @@ public class Buyer {
         this.familyName = newFamilyName;
     }
 
+    // Additional comments use “givenName” and “familyName” rather than “firstName” and “lastName”
+    //
+
     public void setGivenName(String newGivenName) {
         this.givenName = newGivenName;
     }
