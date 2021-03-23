@@ -27,8 +27,9 @@ public class AutoShowroom {
         createCars();
         displayCars();
         // To run the console
-        buyerAndBid(cars.get(0));
-        buyerAndBid((cars.get(1)));
+        buyerAndBidDetails(cars.get(0));
+        buyerAndBidDetails((cars.get(1)));
+        buyerAndBidDetails((cars.get(2)));
         System.out.println("Thank you for visiting FIT2099 Showroom");
     }
 
@@ -72,50 +73,19 @@ public class AutoShowroom {
 
             ArrayList<Bid> bidsCar = cars.get(i).getBids();
             for (Bid currentBid : bidsCar) {
-                Buyer currentBuyer = currentBid.getBuyer();
+                Buyer bidBuyer = currentBid.getBuyer();
                 // change date format
                 Format reformatDate = new SimpleDateFormat("EE dd/MM/yyyy");
                 String bidDate = reformatDate.format(currentBid.getBidDate());
                 System.out.println(" Bid " + currentBid.getBidId() + ": \n * Buyer ID: "
-                        + currentBuyer.getBuyerId() + "\n * Buyer Name: " + currentBuyer.getGivenName()
-                        + " " + currentBuyer.getFamilyName() + "\n * Bid Price: $"
+                        + bidBuyer.getBuyerId() + "\n * Buyer Name: " + bidBuyer.getGivenName()
+                        + " " + bidBuyer.getFamilyName() + "\n * Bid Price: $"
                         + String.format("%.2f", currentBid.getBidPrice()) + "\n * Bid Date: " + bidDate);
             }
         }
     }
 
-    // Task 6 - creation of Bid and Buyer objects
-    private void buyerAndBid(Car bidsCar) {
-        String givenName;
-        String famName;
-        int buyerId;
-        double bidCarPrice;
-        Date bidDate;
-
-        // Call console
-        String[] buyerName = inputBuyerName();
-        givenName = buyerName[0];
-        famName = buyerName[1];
-        buyerId = inputId();
-        bidCarPrice = inputBidPrice();
-        bidDate = inputBidDate();
-
-        // Create new buyer
-        Buyer newBuyer = new Buyer(buyerId, givenName, famName);
-        buyerRec(newBuyer);
-
-        // Add bid on a car
-        bidsCar.addBid(newBuyer, bidCarPrice, bidDate);
-    }
-
-    // Add buyer in an ArrayList only once for records purposes
-    private void buyerRec(Buyer buyer){
-        if (!buyerIds.contains(buyer.getBuyerId())) {
-            buyersRec.add(buyer);
-            buyerIds.add(buyer.getBuyerId());
-        }
-    }
-
+    // Task 6
     // Console I/O for each input
     // Buyer's input name
     public static String[] inputBuyerName(){
@@ -191,5 +161,35 @@ public class AutoShowroom {
             }
         }
         return buyerBidDate;
+    }
+
+    private void buyerAndBidDetails(Car bidsCar) {
+        String givenName;
+        String famName;
+        int buyerId;
+        double bidCarPrice;
+        Date bidDate;
+
+        // Call console
+        String[] buyerName = inputBuyerName();
+        givenName = buyerName[0];
+        famName = buyerName[1];
+        buyerId = inputId();
+        bidCarPrice = inputBidPrice();
+        bidDate = inputBidDate();
+
+        // Create new buyer after enter the details into console
+        Buyer newBuyer = new Buyer(buyerId, givenName, famName);
+        boolean check = true;
+        while (check) {
+            if (!buyerIds.contains(newBuyer.getBuyerId())) {
+                buyersRec.add(newBuyer);
+                buyerIds.add(newBuyer.getBuyerId());
+                check = false;   // while loop terminates
+            }
+        }
+
+        // Add bid on a car
+        bidsCar.addBid(newBuyer, bidCarPrice, bidDate);
     }
 }
