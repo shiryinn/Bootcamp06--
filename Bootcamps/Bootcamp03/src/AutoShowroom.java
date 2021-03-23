@@ -109,25 +109,6 @@ public class AutoShowroom {
         return new String[]{buyerGivenName, buyerFamilyName};
     }
 
-    // Buyer's input price
-    public static double inputBidPrice(){
-        // initialise bid price to 0
-        double buyerBidPrice = 0;
-        boolean check = true;
-        while (check) {
-            try {
-                Scanner scanBidPrice = new Scanner(System.in);
-                System.out.print("Buyer's bid price: ");
-                buyerBidPrice = scanBidPrice.nextDouble();
-                check = false;
-            }
-            catch (Exception e) {
-                System.out.println("Please enter a valid bid price");
-            }
-        }
-        return buyerBidPrice;
-    }
-
     // Buyer's input ID
     public static int inputBuyerId(){
         // initialise buyerId to 0
@@ -141,10 +122,31 @@ public class AutoShowroom {
                 check = false;
             }
             catch (Exception e) {
+                System.out.println("Invalid ID!");
                 System.out.println("Please enter a valid ID");
             }
         }
         return buyerId;
+    }
+
+    // Buyer's input price
+    public static double inputBidPrice(){
+        // initialise bid price to 0
+        double buyerBidPrice = 0;
+        boolean check = true;
+        while (check) {
+            try {
+                Scanner scanBidPrice = new Scanner(System.in);
+                System.out.print("Buyer's bid price: ");
+                buyerBidPrice = scanBidPrice.nextDouble();
+                check = false;
+            }
+            catch (Exception e) {
+                System.out.println("Invalid bid price!");
+                System.out.println("Please enter a valid bid price");
+            }
+        }
+        return buyerBidPrice;
     }
 
     // Buyer's bid date
@@ -163,7 +165,8 @@ public class AutoShowroom {
                 check = false;
             }
             catch (ParseException e) {
-                System.out.println("Please enter a valid date in the format dd/MM/yyyy");
+                System.out.println("Invalid date!");
+                System.out.println("Please enter a valid date in format dd/MM/yyyy");
             }
         }
         return buyerBidDate;
