@@ -1,9 +1,16 @@
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Scanner;
 
 public class AutoShowroom {
 
     // Create an ArrayList car object
-    private ArrayList<Car> cars = new ArrayList<Car>();
+    private ArrayList<Car> cars = new ArrayList<>();
+    private ArrayList<Buyer> buyersRec = new ArrayList<>();
+    private ArrayList<Integer> buyerIds = new ArrayList<>();
 
     public void printStatus() {
         System.out.println("Welcome to FIT2099 Showroom");
@@ -19,7 +26,18 @@ public class AutoShowroom {
         */
         createCars();
         displayCars();
+        // To run the console
+        createBidAndBuyer(cars.get(0));
+        createBidAndBuyer((cars.get(1)));
         System.out.println("Thank you for visiting FIT2099 Showroom");
+    }
+
+    public ArrayList<Car> getCars() {
+        return this.cars;
+    }
+
+    public ArrayList<Buyer> getBuyers() {
+        return this.buyersRec;
     }
 
     public void createCars() {
@@ -30,12 +48,151 @@ public class AutoShowroom {
         cars.add(0, car1);
         cars.add(1, car2);
         cars.add(2, car3);
+
+        /*
+         // test cases for Task 5
+         // Create buyers
+         Buyer buyer1 = new Buyer(1, "Ashley", "Kristin");
+         Buyer buyer2 = new Buyer(2, "John", "Dell");
+         Buyer buyer3 = new Buyer(3, "Andy", "Sam");
+         // Create bids
+         Bid bid1 = new Bid(1, buyer1, 50000.00, "07-05-2020");
+         Bid bid2 = new Bid(2, buyer2, 120000.00, "04-03-2020");
+         // Add bids
+         car1.addBid(buyer1, 50000.00, "07-05-2020");
+         car1.addBid(buyer2, 15000.00, "04-03-2020");
+         car3.addBid(buyer3, 15000.00, "04-03-2020");
+         */
+
     }
 
     public void displayCars() {
-        for(int i = 0; i < cars.size(); i++) {
-            String carsDesc = "Car (" + (i+1) + ") " + cars.get(i).description();
-            System.out.println(carsDesc);
+        for (int i = 0; i < cars.size(); i++) {
+            String carDesc = "Car (" + (i + 1) + ") ";
+            System.out.print(carDesc);
+            System.out.println(cars.get(i).description());
+
+            ArrayList<Bid> bidsCar = cars.get(i).getBids();
+            for (Bid currentBid : bidsCar) {
+                Buyer currentBuyer = currentBid.getBuyer();
+                // change date format
+                Format reformatDate = new SimpleDateFormat("EE dd/MM/yyyy");
+                String bidDate = reformatDate.format(currentBid.getBidDate());
+                System.out.println(" Bid " + currentBid.getBidId() + ": \n * Buyer ID: "
+                        + currentBuyer.getBuyerId() + "\n * Buyer Name: " + currentBuyer.getGivenName()
+                        + " " + currentBuyer.getFamilyName() + "\n * Bid Price: $"
+                        + String.format("%.2f", currentBid.getBidPrice())
+                        + "\n * Bid Date: " + bidDate);
+            }
         }
+    }
+
+    // Task 6 - creation of Bid and Buyer objects
+    private void createBidAndBuyer(Car bidsCar) {
+        String givenName;
+        String famName;
+        int buyerId;
+        double bidCarPrice;
+        Date bidDate;
+
+        // Call console
+        String[] buyerName = inputBuyerName();
+        givenName = buyerName[0];
+        famName = buyerName[1];
+        buyerId = inputId();
+        bidCarPrice = inputBidPrice();
+        bidDate = inputBidDate();
+
+        // create new buyer
+        Buyer newBuyer = new Buyer(buyerId, givenName, famName);
+        buyerRec(newBuyer);
+
+        // add bid on a car
+        bidsCar.addBid(newBuyer, bidCarPrice, bidDate);
+    }
+
+    // Add buyer in an ArrayList only once for records purposes
+    private void buyerRec(Buyer buyer){
+        if (!buyerIds.contains(buyer.getBuyerId())) {
+            buyersRec.add(buyer);
+            buyerIds.add(buyer.getBuyerId());
+        }
+    }
+
+    // Console I/O for each input
+    // Buyer's input name
+    public static String[] inputBuyerName(){
+        System.out.println("----------------------------");
+        System.out.println("Please enter the details:");
+        // input buyer's given name
+        Scanner scanGivenName = new Scanner(System.in);
+        System.out.print("Buyer's given name: ");
+        String buyerGivenName = scanGivenName.nextLine();
+        // input buyer's family name
+        Scanner scanFamilyName = new Scanner(System.in);
+        System.out.print("Buyer's family name: ");
+        String buyerFamilyName = scanFamilyName.nextLine();
+
+        return new String[]{buyerGivenName, buyerFamilyName};
+    }
+
+    // Buyer's input price
+    public static double inputBidPrice(){
+        // initialise bid price to 0
+        double buyerBidPrice = 0;
+        boolean checkCond = true;
+        while (checkCond) {
+            try {
+                Scanner scanBidPrice = new Scanner(System.in);
+                System.out.print("Buyer's bid price: ");
+                buyerBidPrice = scanBidPrice.nextDouble();
+                checkCond = false;
+            }
+            catch (Exception e) {
+                System.out.println("Please enter a valid bid price");
+            }
+        }
+        return buyerBidPrice;
+    }
+
+    // Buyer's input ID
+    public static int inputId(){
+        // initialise buyerId to 0
+        int buyerId = 0;
+        boolean checkCond = true;
+        while (checkCond) {
+            try {
+                Scanner scanBuyerId = new Scanner(System.in);
+                System.out.print("Buyer's ID: ");
+                buyerId = scanBuyerId.nextInt();
+                checkCond = false;
+            }
+            catch (Exception e) {
+                System.out.println("Please enter a valid ID");
+            }
+        }
+        return buyerId;
+    }
+
+    // Buyer's bid date
+    public static Date inputBidDate(){
+        // initialise date to null
+        Date buyerBidDate = null;
+        SimpleDateFormat reformatDate = new SimpleDateFormat("dd/MM/yyyy");
+        boolean checkCond = true;
+        while (checkCond) {
+            try {
+                // make sure dates enter are valid
+                reformatDate.setLenient(false);
+                Scanner scanBidDate = new Scanner(System.in);
+                System.out.print("Bid date: ");
+                buyerBidDate = reformatDate.parse(scanBidDate.next());
+                checkCond = false;
+            }
+            catch (ParseException e) {
+                System.out.println("Please enter a valid date in the format dd/MM/yyyy");
+            }
+        }
+        return buyerBidDate;
     }
 }

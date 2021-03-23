@@ -9,7 +9,7 @@ public class Bid {
     private Date bidDate;
 
     // Constructor
-    public Bid(int newBidId, Buyer newBuyer, int newBidPrice, Date newBidDate){
+    public Bid(int newBidId, Buyer newBuyer, double newBidPrice, Date newBidDate){
         this.bidId = newBidId;
         this.buyer = newBuyer;
         this.bidPrice = newBidPrice;
@@ -20,8 +20,8 @@ public class Bid {
         this.bidId = newBidId;
     }
 
-    public void setBuyer(Buyer newBuyer) {
-        this.buyer = newBuyer;
+    public void setBuyer(int newBuyerId, String buyerGivName, String buyerFamName) {
+        this.buyer = new Buyer(newBuyerId, buyerGivName, buyerFamName);
     }
 
     public void setBidPrice(double newBidPrice) {

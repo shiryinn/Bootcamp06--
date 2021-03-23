@@ -1,7 +1,12 @@
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Car {
 
     private String carMaker;
     private String carModel;
+    private ArrayList<Bid> bids = new ArrayList<>();
+    private int bidIdCount = 0;
 
     public Car(String newMaker, String newModel) {
         this.carMaker = newMaker;
@@ -22,5 +27,15 @@ public class Car {
         // Task 4
         String carDescription = "Maker:" + getCarMaker() + " and Model:" + getCarModel();
         return carDescription;
+    }
+
+    public ArrayList<Bid> getBids(){
+        return this.bids;
+    }
+
+    public void addBid(Buyer newBuyer, double price, Date date) {
+        this.bidIdCount++;
+        Bid newBid = new Bid(bidIdCount, newBuyer, price, date);
+        bids.add(newBid);
     }
 }
