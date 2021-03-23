@@ -29,9 +29,7 @@ public class Car {
         return carDescription;
     }
 
-    public ArrayList<Bid> getBids(){
-        return this.bids;
-    }
+    public ArrayList<Bid> getBids() { return this.bids; }
 
     public void addBid(Buyer newBuyer, double price, Date date) {
         this.bidIdCount++;
