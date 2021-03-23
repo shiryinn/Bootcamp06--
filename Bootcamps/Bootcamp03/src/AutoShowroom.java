@@ -66,10 +66,9 @@ public class AutoShowroom {
     }
 
     public void displayCars() {
-        for (int i = 0; i < cars.size(); i++) {
-            String carDesc = "Car (" + (i + 1) + ") ";
-            System.out.print(carDesc);
-            System.out.println(cars.get(i).description());
+        for(int i = 0; i < cars.size(); i++) {
+            String carsDesc = "Car (" + (i+1) + ") " + cars.get(i).description();
+            System.out.println(carsDesc);
 
             ArrayList<Bid> bidsCar = cars.get(i).getBids();
             for (Bid currentBid : bidsCar) {
@@ -80,8 +79,7 @@ public class AutoShowroom {
                 System.out.println(" Bid " + currentBid.getBidId() + ": \n * Buyer ID: "
                         + currentBuyer.getBuyerId() + "\n * Buyer Name: " + currentBuyer.getGivenName()
                         + " " + currentBuyer.getFamilyName() + "\n * Bid Price: $"
-                        + String.format("%.2f", currentBid.getBidPrice())
-                        + "\n * Bid Date: " + bidDate);
+                        + String.format("%.2f", currentBid.getBidPrice()) + "\n * Bid Date: " + bidDate);
             }
         }
     }
