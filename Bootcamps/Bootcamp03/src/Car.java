@@ -1,4 +1,5 @@
 public class Car {
+
     private String carMaker;
     private String carModel;
 
@@ -8,7 +9,6 @@ public class Car {
     }
 
     public String getCarMaker() {
-
         return this.carMaker;
     }
 
