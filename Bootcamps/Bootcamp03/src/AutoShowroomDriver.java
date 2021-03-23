@@ -6,8 +6,5 @@ public class AutoShowroomDriver {
         // test cases
         //System.out.println(autoShowroom.getBuyers());
 
-
-
-
     }
 }
