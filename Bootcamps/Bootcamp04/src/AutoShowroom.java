@@ -12,7 +12,6 @@ import java.util.*;
 
 public class AutoShowroom {
 
-    // Create an ArrayList car object
     private ArrayList<Vehicle> vehicles = new ArrayList<>();
 
     private HashMap<Integer, Buyer> buyersRec = new HashMap<>();
@@ -34,9 +33,9 @@ public class AutoShowroom {
             System.out.println("1. New Sedan " +
                     "\n2. New Truck " +
                     "\n3. Add new buyer " +
-                    "\n4. Add new bid " +
-                    "\n5. Display current fleek " +
-                    "\n6. Display buyers " +
+                    "\n4. Display current fleek " +
+                    "\n5. Display buyers " +
+                    "\n6. Add new bid " +
                     "\n7. Exit");
             System.out.print("Select an option: ");
 
@@ -69,16 +68,16 @@ public class AutoShowroom {
         } else if (option == 3) {
             this.createBuyer();
         } else if (option == 4) {
-            this.createBid();
-        } else if (option == 5) {
             this.displayFleet();
-        } else if (option == 6) {
+        } else if (option == 5) {
             this.displayBuyers();
+        } else if (option == 6) {
+            this.createBid();
         } else if (option == 7) {
-            System.out.println("+-----------------------------------+");
+            System.out.println("+------------------------------------------+");
             System.out.println("| Thank you for visiting FIT2099 Showroom. |");
-            System.out.println("| Goodbye! See you again! |");
-            System.out.println("+-----------------------------------+");
+            System.out.println("|         Goodbye! See you again!          |");
+            System.out.println("+------------------------------------------+");
         } else {
             System.out.println("Please enter a valid option");
             this.printStatus(true);
@@ -122,29 +121,21 @@ public class AutoShowroom {
         System.out.println(newBuyer.description());
     }
 
-    // create bid problem
     public void createBid() {
-        int vehId = inputVehId();
         int buyerId = inputBuyerId();
         double bidPrice = inputBidPrice();
         Date bidDate = inputBidDate();
-        boolean condition = false;
-        while (condition) {
-            for (Vehicle vehicle : vehicles) {
-                if (vehId == vehicle.getVId()) {
-                    vehicle.getManageBids().addBid(buyerId, bidPrice, bidDate);
-                    condition = true;
-                }
-                else {
-                    System.out.println("Bid is not added!");
-                }
+        int vehId = inputVehId();
+        for (Vehicle vehicle : vehicles) {
+            if (vehId == vehicle.getVId()) {
+                vehicle.getManageBids().addBid(buyerId, bidPrice, bidDate);
+                System.out.println("Bid is successfully added!");
                 Format formatter = new SimpleDateFormat("dd/MM/yyyy");
                 String formatDate = formatter.format(bidDate);
-                System.out.println("Bid is successfully added!");
-                System.out.println("Bid's details:");
-                System.out.println(buyersRec.get(buyerId).description());
-                System.out.println("Price: $" + String.format("%.2f", bidPrice));
-                System.out.println("Date: " + formatDate);
+                System.out.println("Bid's details: "
+                        + buyersRec.get(buyerId).description()
+                        + " | Price: $" + String.format("%.2f", bidPrice)
+                        + " | Date: " + formatDate);
             }
         }
     }
@@ -156,8 +147,10 @@ public class AutoShowroom {
             BidsManager vehBids = vehicles.get(i).getManageBids();
             HashMap<Integer, Bid> bids = vehBids.getBidsManage();
             for (Integer currentBuyer : bids.keySet()) {
+                System.out.println("------------------------------------");
                 Bid currentBid = bids.get(currentBuyer);
                 System.out.println(currentBid.bidsDescription());
+                System.out.println("------------------------------------");
             }
         }
     }
@@ -248,6 +241,7 @@ public class AutoShowroom {
     // input for buyer's name
     private static String[] inputBuyerName(){
         System.out.println("Please enter the details below:");
+        System.out.println("------------------------------------");
         // input buyer's given name
         Scanner scannerGivName = new Scanner(System.in);
         System.out.print("Buyer's first name: ");
@@ -260,7 +254,7 @@ public class AutoShowroom {
         return new String[]{buyerGivName, buyerFamName};
     }
 
-    private static int inputVehId() {
+    private int inputVehId() {
         int vehId = 0;
         boolean condition = true;
         while (condition) {
@@ -268,7 +262,16 @@ public class AutoShowroom {
                 Scanner scannerVehicleId = new Scanner(System.in);
                 System.out.print("Vehicle's ID: ");
                 vehId = scannerVehicleId.nextInt();
-                condition = false;
+                for (Vehicle v : this.vehicles) {
+                    if (v.getVId() == vehId) {
+                        condition = false;
+                    }
+                    else {
+                        // check vehicle id match
+                        System.out.println("Vehicle does not exist. Please enter again: ");
+                        condition = true;
+                    }
+                }
             } catch (Exception e) {
                 System.out.println("Invalid ID! Please enter a valid ID.");
             }
@@ -276,8 +279,7 @@ public class AutoShowroom {
         return vehId;
     }
 
-
-    private static int inputBuyerId(){
+    private int inputBuyerId(){
         int buyerId = 0;
         boolean condition = true;
         while (condition) {
@@ -286,6 +288,11 @@ public class AutoShowroom {
                 System.out.print("Buyer's ID: ");
                 buyerId = scannerBuyerId.nextInt();
                 condition = false;
+                // check buyer ID match
+                if (!this.buyersRec.containsKey(buyerId)) {
+                    System.out.println("Buyer does not exist. Please enter again: ");
+                    condition = true;
+                }
             } catch (Exception e) {
                 System.out.println("Invalid ID! Please enter a valid ID.");
             }
@@ -328,6 +335,5 @@ public class AutoShowroom {
         }
         return buyerBidDate;
     }
-
 }
 

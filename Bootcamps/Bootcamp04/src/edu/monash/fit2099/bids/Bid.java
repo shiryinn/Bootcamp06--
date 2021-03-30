@@ -57,9 +57,8 @@ public class Bid {
     public String bidsDescription(){
         Format formatter = new SimpleDateFormat("dd/MM/yyyy");
         String bidDate = formatter.format(this.getBidDate());
-        return " Bid " + this.getBidId() + ": \n Buyer: "
-                + this.getBuyer().description() + "\n Bid Price: $"
-                + String.format("%.2f", this.getBidPrice())
+        return " Bid " + this.getBidId() + ": \n Buyer ID: " + this.getBuyer().getBuyerId()
+                + "\n Bid Price: $" + String.format("%.2f", this.getBidPrice())
                 + "\n Bid Date: " + bidDate;
     }
 }

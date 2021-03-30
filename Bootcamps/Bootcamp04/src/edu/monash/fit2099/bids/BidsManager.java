@@ -8,8 +8,7 @@ public class BidsManager {
 
     HashMap<Integer, Bid> bidsManage = new HashMap<>();
 
-    public BidsManager() {
-    }
+    public BidsManager() { }
 
     public HashMap<Integer, Bid> getBidsManage() {
         return this.bidsManage;

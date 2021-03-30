@@ -7,14 +7,14 @@ public class Buyer {
     private String familyName;
 
     // Constructors
-    public Buyer(int newBuyerId) {
-        this.buyerId = newBuyerId;
-    }
-
     public Buyer(int newBuyerId, String newGivenName, String newFamilyName) {
         this.buyerId = newBuyerId;
         this.givenName = newGivenName;
         this.familyName = newFamilyName;
+    }
+
+    public Buyer(int newBuyerId) {
+        this.buyerId = newBuyerId;
     }
 
     // Additional comments use “givenName” and “familyName” rather than “firstName” and “lastName”
@@ -32,16 +32,13 @@ public class Buyer {
         return this.givenName;
     }
 
-    public String getFamilyName() {
-        return this.familyName;
-    }
+    public String getFamilyName() { return this.familyName; }
 
     public int getBuyerId() {
         return this.buyerId;
     }
 
-    // accessor method
     public String description() {
-        return this.buyerId + " | " + getGivenName() + " " + getFamilyName();
+        return this.getBuyerId() + " | Name: " + this.getGivenName() + " " + this.getFamilyName();
     }
 }
