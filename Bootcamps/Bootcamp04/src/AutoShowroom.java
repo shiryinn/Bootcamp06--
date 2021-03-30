@@ -1,3 +1,5 @@
+import edu.monash.fit2099.bids.Bid;
+import edu.monash.fit2099.bids.BidsManager;
 import edu.monash.fit2099.buyers.Buyer;
 import edu.monash.fit2099.vehicles.Sedan;
 import edu.monash.fit2099.vehicles.Truck;
@@ -44,7 +46,7 @@ public class AutoShowroom {
                 option = optionsChosen.nextInt();
                 if (option == 7) {
                     condition = false;
-                    System.out.println("Thank you for visiting FIT2099 Showroom");
+                    this.checkOptions(option);
                 } else {
                     this.checkOptions(option);
                 }
@@ -88,12 +90,12 @@ public class AutoShowroom {
         String[] vehicleName = inputVehicleName();
         int seatsNo = inputVehSeats();
         // create new instance for Sedan
-        Sedan newSedan = new Sedan(vehicleName[0], vehicleName[1], seatsNo, vId);
+        Sedan newSedan = new Sedan(vehicleName[0], vehicleName[1], vId, seatsNo);
         // add into arraylist
         this.vehicles.add(newSedan);
         System.out.println("Vehicle (Sedan) successfully added!");
         System.out.println("Vehicle details:");
-        System.out.println(newSedan.description());
+        System.out.println(newSedan.description() + " | Seats: " + seatsNo);
     }
 
     public void createTruck() {
@@ -107,7 +109,7 @@ public class AutoShowroom {
         this.vehicles.add(newTruck);
         System.out.println("Vehicle (Truck) successfully added!");
         System.out.println("Vehicle details:");
-        System.out.println(newTruck.description());
+        System.out.println(newTruck.description() + " | Wheels: " + wheelsNo + " | Capacity: " + vehCapacity);
     }
 
     public void createBuyer() {
@@ -120,15 +122,23 @@ public class AutoShowroom {
         System.out.println(newBuyer.description());
     }
 
+    // create bid problem
     public void createBid() {
         int vehId = inputVehId();
         int buyerId = inputBuyerId();
         double bidPrice = inputBidPrice();
         Date bidDate = inputBidDate();
-        for (Vehicle vehicle : vehicles) {
-            if (vehicle.getVId() == vehId) {
-                vehicle.getManageBids().addBid(buyerId, bidPrice, bidDate);
-                Format formatter = new SimpleDateFormat("EE dd/MM/yyyy");
+        boolean condition = false;
+        while (condition) {
+            for (Vehicle vehicle : vehicles) {
+                if (vehId == vehicle.getVId()) {
+                    vehicle.getManageBids().addBid(buyerId, bidPrice, bidDate);
+                    condition = true;
+                }
+                else {
+                    System.out.println("Bid is not added!");
+                }
+                Format formatter = new SimpleDateFormat("dd/MM/yyyy");
                 String formatDate = formatter.format(bidDate);
                 System.out.println("Bid is successfully added!");
                 System.out.println("Bid's details:");
@@ -139,12 +149,27 @@ public class AutoShowroom {
         }
     }
 
-    public void displayFleet() {
-
+    private void displayFleet() {
+        for (int i = 0; i < vehicles.size(); i++) {
+            String carDesc = "Car (" + (i+1) + ") " + vehicles.get(i).description() + " \n";
+            System.out.print(carDesc);
+            BidsManager vehBids = vehicles.get(i).getManageBids();
+            HashMap<Integer, Bid> bids = vehBids.getBidsManage();
+            for (Integer currentBuyer : bids.keySet()) {
+                Bid currentBid = bids.get(currentBuyer);
+                System.out.println(currentBid.bidsDescription());
+            }
+        }
     }
 
     public void displayBuyers() {
-
+        int buyersCount = 1;
+        System.out.println("Buyers:");
+        for (Integer buyerId : buyersRec.keySet()) {
+            Buyer buyer = buyersRec.get(buyerId);
+            System.out.println(buyersCount + ") " + buyer.description());
+            buyersCount++;
+        }
     }
 
     // generate random Id

@@ -16,17 +16,22 @@ abstract public class Vehicle {
     public Vehicle(String newMaker, String newModel) {
         this.carMaker = newMaker;
         this.carModel = newModel;
-        Random random = new Random();
-        int low = this.vId;
-        int high = 99999;
-        int randomId = random.nextInt(high - low) + low;
-        this.vId = randomId;
+        this.vId = randomId();
     }
 
     public Vehicle(String newMaker, String newModel, int newId) {
         this.carMaker = newMaker;
         this.carModel = newModel;
         this.vId = newId;
+    }
+
+    // generate random Id
+    private static int randomId(){
+        Random random = new Random();
+        int low = 1;
+        int high = 99999;
+        int randomId = random.nextInt(high - low) + low;
+        return randomId;
     }
 
     public int getVId() { return this.vId; }
@@ -42,7 +47,7 @@ abstract public class Vehicle {
     public BidsManager getManageBids() { return this.manageBids; }
 
     public String description() {
-        String desc = "ID:" + getVId() + "Maker:" + getCarMaker() + " and Model:" + getCarModel();
+        String desc = "ID: " + getVId() + " | Maker: " + getCarMaker() + " | Model: " + getCarModel();
         return desc;
     }
 }

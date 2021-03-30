@@ -2,6 +2,8 @@ package edu.monash.fit2099.bids;
 
 import edu.monash.fit2099.buyers.Buyer;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Bid {
@@ -50,5 +52,14 @@ public class Bid {
 
     public Date getBidDate() {
         return this.bidDate;
+    }
+
+    public String bidsDescription(){
+        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String bidDate = formatter.format(this.getBidDate());
+        return " Bid " + this.getBidId() + ": \n Buyer: "
+                + this.getBuyer().description() + "\n Bid Price: $"
+                + String.format("%.2f", this.getBidPrice())
+                + "\n Bid Date: " + bidDate;
     }
 }
