@@ -1,224 +1,308 @@
-import edu.monash.fit2099.bids.Bid;
 import edu.monash.fit2099.buyers.Buyer;
+import edu.monash.fit2099.vehicles.Sedan;
+import edu.monash.fit2099.vehicles.Truck;
 import edu.monash.fit2099.vehicles.Vehicle;
 
-import java.text.DateFormat;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class AutoShowroom {
 
     // Create an ArrayList car object
     private ArrayList<Vehicle> vehicles = new ArrayList<>();
 
-    // Task 7
-    // Implementing two arrayList to avoid duplicates
-    //private ArrayList<edu.monash.fit2099.buyers.Buyer> buyersRec = new ArrayList<>();
-    //private ArrayList<Integer> buyerIds = new ArrayList<>();
+    private HashMap<Integer, Buyer> buyersRec = new HashMap<>();
 
-    public void printStatus() throws ParseException {
-        System.out.println("Welcome to FIT2099 Showroom");
+    public ArrayList<Vehicle> getVehicles() { return this.vehicles; }
 
-        Vehicle vehicle1 = new Vehicle("BMW", "X7");
-        Vehicle vehicle2 = new Vehicle("Audi", "A8");
-        Vehicle vehicle3 = new Vehicle("Mercedes", "GLS");
-        // Task 3
-        /* test cases for task 3
-        System.out.println(car1.getCarDescription());
-        System.out.println(car2.getCarDescription());
-        System.out.println(car3.getCarDescription());
-        */
-        createCars();
-        displayCars();
-        // It terminates after the third time calling console
-        buyerAndBidDetails(vehicles.get(0));
-        buyerAndBidDetails((vehicles.get(1)));
-        buyerAndBidDetails((vehicles.get(2)));
-        System.out.println("Thank you for visiting FIT2099 Showroom");
-    }
-
-    public ArrayList<Vehicle> getCars() {
-        return this.vehicles;
-    }
-
-    // Task 7
-    /*
-    public ArrayList<edu.monash.fit2099.buyers.Buyer> getBuyers() {
+    private HashMap<Integer, Buyer> getBuyersRec() {
         return this.buyersRec;
     }
-    */
 
+    // print console
+    public void printStatus(boolean display) {
+        boolean condition = true;
+        while (condition) {
+            System.out.println("+---------------------------------+");
+            System.out.println("|           Welcome to            |");
+            System.out.println("|      FIT2099 AutoShowroom       |");
+            System.out.println("+---------------------------------+");
+            System.out.println("1. New Sedan " +
+                    "\n2. New Truck " +
+                    "\n3. Add new buyer " +
+                    "\n4. Add new bid " +
+                    "\n5. Display current fleek " +
+                    "\n6. Display buyers " +
+                    "\n7. Exit");
+            System.out.print("Select an option: ");
 
-    public void createCars() throws ParseException {
-        Vehicle vehicle1 = new Vehicle("BMW", "X7");
-        Vehicle vehicle2 = new Vehicle("Audi", "A8");
-        Vehicle vehicle3 = new Vehicle("Mercedes", "GLS");
-        // add element into car ArrayList by add operation
-        vehicles.add(0, vehicle1);
-        vehicles.add(1, vehicle2);
-        vehicles.add(2, vehicle3);
-
-        // test cases for Task 5
-        // Create buyers
-        Buyer buyer1 = new Buyer(1, "Ashley", "Kristin");
-        Buyer buyer2 = new Buyer(2, "John", "Dell");
-        Buyer buyer3 = new Buyer(3, "Andy", "Sam");
-        // Create bids
-        DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
-        Date newBidDate1 = dateFormatter.parse("07-05-2019");
-        Date newBidDate2 = dateFormatter.parse("04-03-2020");
-        Bid bid1 = new Bid(1, buyer1, 150000.00, newBidDate1);
-        Bid bid2 = new Bid(2, buyer2, 120000.00, newBidDate2);
-        // Add bids
-        vehicle1.addBid(buyer1, 50000.00, newBidDate1);
-        vehicle2.addBid(buyer2, 15000.00, newBidDate2);
-        vehicle2.addBid(buyer2, 20000.00, newBidDate1);
-        vehicle3.addBid(buyer3, 15000.00, newBidDate2);
-
-    }
-
-    public void displayCars() {
-        for(int i = 0; i < vehicles.size(); i++) {
-            String carsDesc = "Car (" + (i+1) + ") " + vehicles.get(i).description();
-            System.out.println(carsDesc);
-
-            // display the lists of bids and buyers
-            ArrayList<Bid> bidsCar = vehicles.get(i).getBids();
-            for (Bid currentBid : bidsCar) {
-                Buyer bidBuyer = currentBid.getBuyer();
-                // change date format
-                Format reformatDate = new SimpleDateFormat("dd/MM/yyyy");
-                String bidDate = reformatDate.format(currentBid.getBidDate());
-                String buyerBidDesc = "edu.monash.fit2099.bids.Bid " + currentBid.getBidId() + ": \n----------------------------" +"\nedu.monash.fit2099.buyers.Buyer's ID: "
-                        + bidBuyer.getBuyerId() + "\nedu.monash.fit2099.buyers.Buyer's Name: " + bidBuyer.getGivenName()
-                        + " " + bidBuyer.getFamilyName() + "\nedu.monash.fit2099.bids.Bid's Price: $"
-                        + String.format("%.2f", currentBid.getBidPrice()) + "\nedu.monash.fit2099.bids.Bid's Date: " + bidDate + "\n----------------------------";
-                System.out.println(buyerBidDesc);
+            Scanner optionsChosen = new Scanner(System.in);
+            int option;
+            try {
+                option = optionsChosen.nextInt();
+                if (option == 7) {
+                    condition = false;
+                    System.out.println("Thank you for visiting FIT2099 Showroom");
+                } else {
+                    this.checkOptions(option);
+                }
+            } catch (Exception e) {
+                System.out.println("Please choose a valid option!!!");
+                this.printStatus(true);
+            }
+            if (!display) {
+                condition = false;
             }
         }
     }
 
-    // Task 6
-    // Console I/O for each input
-    // edu.monash.fit2099.buyers.Buyer's input name
-    public static String[] inputBuyerName(){
-        System.out.println("----------------------------");
-        System.out.println("Please enter the details:");
-        // input buyer's given name
-        Scanner scanGivenName = new Scanner(System.in);
-        System.out.print("edu.monash.fit2099.buyers.Buyer's given name: ");
-        String buyerGivenName = scanGivenName.nextLine();
-        // input buyer's family name
-        Scanner scanFamilyName = new Scanner(System.in);
-        System.out.print("edu.monash.fit2099.buyers.Buyer's family name: ");
-        String buyerFamilyName = scanFamilyName.nextLine();
-
-        return new String[]{buyerGivenName, buyerFamilyName};
+    // check if input int is valid
+    private void checkOptions(int option) {
+        if (option == 1) {
+            this.createSedan();
+        } else if (option == 2) {
+            this.createTruck();
+        } else if (option == 3) {
+            this.createBuyer();
+        } else if (option == 4) {
+            this.createBid();
+        } else if (option == 5) {
+            this.displayFleet();
+        } else if (option == 6) {
+            this.displayBuyers();
+        } else if (option == 7) {
+            System.out.println("+-----------------------------------+");
+            System.out.println("| Thank you for visiting FIT2099 Showroom. |");
+            System.out.println("| Goodbye! See you again! |");
+            System.out.println("+-----------------------------------+");
+        } else {
+            System.out.println("Please enter a valid option");
+            this.printStatus(true);
+        }
     }
 
-    // edu.monash.fit2099.buyers.Buyer's input ID
-    public static int inputBuyerId(){
-        // initialise buyerId to 0
-        int buyerId = 0;
-        boolean check = true;
-        while (check) {
-            try {
-                Scanner scanBuyerId = new Scanner(System.in);
-                System.out.print("edu.monash.fit2099.buyers.Buyer's ID: ");
-                buyerId = scanBuyerId.nextInt();
-                check = false;
+    public void createSedan() {
+        int vId = randomId();
+        String[] vehicleName = inputVehicleName();
+        int seatsNo = inputVehSeats();
+        // create new instance for Sedan
+        Sedan newSedan = new Sedan(vehicleName[0], vehicleName[1], seatsNo, vId);
+        // add into arraylist
+        this.vehicles.add(newSedan);
+        System.out.println("Vehicle (Sedan) successfully added!");
+        System.out.println("Vehicle details:");
+        System.out.println(newSedan.description());
+    }
+
+    public void createTruck() {
+        int vId = randomId();
+        String[] vehicleName = inputVehicleName();
+        int wheelsNo = inputVehWheels();
+        int vehCapacity = inputVehCapacity();
+        // create new instance for Truck
+        Truck newTruck = new Truck(vehicleName[0], vehicleName[1], vId, wheelsNo, vehCapacity);
+        // add into arraylist
+        this.vehicles.add(newTruck);
+        System.out.println("Vehicle (Truck) successfully added!");
+        System.out.println("Vehicle details:");
+        System.out.println(newTruck.description());
+    }
+
+    public void createBuyer() {
+        String[] buyerName = inputBuyerName();
+        int buyerId = randomId();
+        Buyer newBuyer = new Buyer(buyerId, buyerName[0], buyerName[1]);
+        this.buyersRec.put(buyerId, newBuyer);
+        System.out.println("Buyer is successfully added!");
+        System.out.println("Buyer's details:");
+        System.out.println(newBuyer.description());
+    }
+
+    public void createBid() {
+        int vehId = inputVehId();
+        int buyerId = inputBuyerId();
+        double bidPrice = inputBidPrice();
+        Date bidDate = inputBidDate();
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.getVId() == vehId) {
+                vehicle.getManageBids().addBid(buyerId, bidPrice, bidDate);
+                Format formatter = new SimpleDateFormat("EE dd/MM/yyyy");
+                String formatDate = formatter.format(bidDate);
+                System.out.println("Bid is successfully added!");
+                System.out.println("Bid's details:");
+                System.out.println(buyersRec.get(buyerId).description());
+                System.out.println("Price: $" + String.format("%.2f", bidPrice));
+                System.out.println("Date: " + formatDate);
             }
-            catch (Exception e) {
-                System.out.println("Invalid ID!");
-                System.out.println("Please enter a valid ID");
+        }
+    }
+
+    public void displayFleet() {
+
+    }
+
+    public void displayBuyers() {
+
+    }
+
+    // generate random Id
+    private static int randomId(){
+        Random random = new Random();
+        int low = 1;
+        int high = 99999;
+        int randomId = random.nextInt(high - low) + low;
+        return randomId;
+    }
+
+    private static String[] inputVehicleName() {
+        System.out.println("Please enter the vehicle's details:");
+        System.out.println("------------------------------------");
+        // ask for input of vehicle's maker
+        Scanner scannerMaker = new Scanner(System.in);
+        System.out.print("Maker: ");
+        String vehicleMaker = scannerMaker.nextLine();
+        // ask for input of vehicle's model
+        Scanner scannerModel = new Scanner(System.in);
+        System.out.print("Model: ");
+        String vehicleModel = scannerModel.nextLine();
+        return new String[]{vehicleMaker, vehicleModel};
+    }
+
+    // Sedan's info IO console
+    public static int inputVehSeats() {
+        int seats = 0;
+        boolean condition = true;
+        while (condition) {
+            try {
+                Scanner scannerSeats = new Scanner(System.in);
+                System.out.print("Enter Sedan's seats: ");
+                condition = false;
+                seats = scannerSeats.nextInt();
+            } catch (Exception e) {
+                System.out.println("Invalid integer! Please enter a valid integer.");
+            }
+        }
+        return seats;
+    }
+
+    // Truck's info IO console
+    public static int inputVehWheels() {
+        int wheels = 0;
+        boolean condition = true;
+        while (condition) {
+            try {
+                Scanner scannerWheels = new Scanner(System.in);
+                System.out.print("Enter number of wheels: ");
+                condition = false;
+                wheels = scannerWheels.nextInt();
+            } catch (Exception e) {
+                System.out.println("Invalid integer! Please enter a valid integer.");
+            }
+        }
+        return wheels;
+    }
+
+    public static int inputVehCapacity() {
+        int capacity = 0;
+        boolean condition = true;
+        while (condition) {
+            try {
+                Scanner scannerCapacity = new Scanner(System.in);
+                System.out.print("Enter capacity: ");
+                condition = false;
+                capacity = scannerCapacity.nextInt();
+            } catch (Exception e) {
+                System.out.println("Invalid integer! Please enter a valid integer.");
+            }
+        }
+        return capacity;
+    }
+
+    // input for buyer's name
+    private static String[] inputBuyerName(){
+        System.out.println("Please enter the details below:");
+        // input buyer's given name
+        Scanner scannerGivName = new Scanner(System.in);
+        System.out.print("Buyer's first name: ");
+        String buyerGivName = scannerGivName.nextLine();
+        // input buyer's family name
+        Scanner scannerFamName = new Scanner(System.in);
+        System.out.print("Buyer's last name: ");
+        String buyerFamName = scannerFamName.nextLine();
+
+        return new String[]{buyerGivName, buyerFamName};
+    }
+
+    private static int inputVehId() {
+        int vehId = 0;
+        boolean condition = true;
+        while (condition) {
+            try {
+                Scanner scannerVehicleId = new Scanner(System.in);
+                System.out.print("Vehicle's ID: ");
+                vehId = scannerVehicleId.nextInt();
+                condition = false;
+            } catch (Exception e) {
+                System.out.println("Invalid ID! Please enter a valid ID.");
+            }
+        }
+        return vehId;
+    }
+
+
+    private static int inputBuyerId(){
+        int buyerId = 0;
+        boolean condition = true;
+        while (condition) {
+            try {
+                Scanner scannerBuyerId = new Scanner(System.in);
+                System.out.print("Buyer's ID: ");
+                buyerId = scannerBuyerId.nextInt();
+                condition = false;
+            } catch (Exception e) {
+                System.out.println("Invalid ID! Please enter a valid ID.");
             }
         }
         return buyerId;
     }
 
-    // edu.monash.fit2099.buyers.Buyer's input price
-    public static double inputBidPrice(){
-        // initialise bid price to 0
+    private static double inputBidPrice(){
         double buyerBidPrice = 0;
-        boolean check = true;
-        while (check) {
+        boolean condition = true;
+        while (condition) {
             try {
-                Scanner scanBidPrice = new Scanner(System.in);
-                System.out.print("edu.monash.fit2099.buyers.Buyer's bid price: ");
-                buyerBidPrice = scanBidPrice.nextDouble();
-                check = false;
-            }
-            catch (Exception e) {
-                System.out.println("Invalid bid price!");
-                System.out.println("Please enter a valid bid price");
+                Scanner scannerBidPrice = new Scanner(System.in);
+                System.out.print("Buyer's bid price: ");
+                buyerBidPrice = scannerBidPrice.nextDouble();
+                condition = false;
+            } catch (Exception e) {
+                System.out.println("Invalid bid price! Please enter a valid bid price");
             }
         }
         return buyerBidPrice;
     }
 
-    // edu.monash.fit2099.buyers.Buyer's bid date
-    public static Date inputBidDate(){
-        // initialise date to null
+    private static Date inputBidDate(){
         Date buyerBidDate = null;
-        SimpleDateFormat reformatDate = new SimpleDateFormat("dd/MM/yyyy");
-        boolean check = true;
-        while (check) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        boolean condition = true;
+        while (condition) {
             try {
-                // make sure dates enter are valid
-                reformatDate.setLenient(false);
-                Scanner scanBidDate = new Scanner(System.in);
-                System.out.print("edu.monash.fit2099.bids.Bid date: ");
-                buyerBidDate = reformatDate.parse(scanBidDate.next());
-                check = false;
-            }
-            catch (ParseException e) {
-                System.out.println("Invalid date!");
-                System.out.println("Please enter a valid date in format dd/MM/yyyy");
+                // ensures dates entered are valid
+                formatter.setLenient(false);
+
+                Scanner scannerBidDate = new Scanner(System.in);
+                System.out.print("Bid's date: ");
+                buyerBidDate = formatter.parse(scannerBidDate.next());
+                condition = false;
+            } catch (ParseException e) {
+                System.out.println("Please enter a valid date in the format dd/MM/yyyy");
             }
         }
         return buyerBidDate;
     }
 
-    private void buyerAndBidDetails(Vehicle bidsVehicle) {
-        String givenName;
-        String famName;
-        int buyerId;
-        double bidCarPrice;
-        Date bidDate;
-
-        // Call console
-        String[] buyerName = inputBuyerName();
-        givenName = buyerName[0];
-        famName = buyerName[1];
-        buyerId = inputBuyerId();
-        bidCarPrice = inputBidPrice();
-        bidDate = inputBidDate();
-
-    }
-
-    /*
-        // Task 7
-        // Check if there's duplicates buyer's Id
-        //While setting the check to be true, it will then loop through the while loop and go to the if loop. The if loop basically works
-        the buyerIds ArrayList which is implemented and check if the new buyer's id exists in the arrayList. Iƒ there is not repeated Id,
-        it will then add into buyersRec which is another arrayList created for recording the buyers and buyerIds will immediately add
-        the new buyer id into it as well using arraylist add operations. The while loop will terminates with check = false.
-        //Pseudocode: (idea)
-        // Create new buyer after enter the details into console
-        edu.monash.fit2099.buyers.Buyer newBuyer = new edu.monash.fit2099.buyers.Buyer(buyerId, givenName, famName);
-        boolean check = true;
-        while (check) {
-            if (!buyerIds.contains(newBuyer.getBuyerId())) {
-                buyerIds.add(newBuyer.getBuyerId());
-                buyersRec.add(newBuyer);
-                check = false;   // while loop terminates
-            }
-        }
-        // Add bid on a car
-        bidsCar.addBid(newBuyer, bidCarPrice, bidDate);
-     */
 }
+

@@ -1,10 +1,9 @@
 package edu.monash.fit2099.vehicles;
 
 import edu.monash.fit2099.bids.Bid;
+import edu.monash.fit2099.bids.BidsManager;
 import edu.monash.fit2099.buyers.Buyer;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.Random;
 
 abstract public class Vehicle {
@@ -12,10 +11,8 @@ abstract public class Vehicle {
     private String carMaker;
     private String carModel;
     private int vId;
-    private ArrayList<Bid> bids = new ArrayList<>();
-    private int bidIdCount = 0;
+    private BidsManager manageBids = new BidsManager();
 
-    // unsure
     public Vehicle(String newMaker, String newModel) {
         this.carMaker = newMaker;
         this.carModel = newModel;
@@ -23,6 +20,7 @@ abstract public class Vehicle {
         int low = this.vId;
         int high = 99999;
         int randomId = random.nextInt(high - low) + low;
+        this.vId = randomId;
     }
 
     public Vehicle(String newMaker, String newModel, int newId) {
@@ -30,6 +28,8 @@ abstract public class Vehicle {
         this.carModel = newModel;
         this.vId = newId;
     }
+
+    public int getVId() { return this.vId; }
 
     public String getCarMaker() {
         return this.carMaker;
@@ -39,19 +39,10 @@ abstract public class Vehicle {
         return this.carModel;
     }
 
+    public BidsManager getManageBids() { return this.manageBids; }
+
     public String description() {
-        // Task 3
-        //String carDescription = getCarMaker() + getCarModel();
-        // Task 4
-        String carDescription = "Maker:" + getCarMaker() + " and Model:" + getCarModel();
-        return carDescription;
-    }
-
-    public ArrayList<Bid> getBids() { return this.bids; }
-
-    public void addBid(Buyer newBuyer, double price, Date date) {
-        this.bidIdCount++;
-        Bid newBid = new Bid(bidIdCount, newBuyer, price, date);
-        bids.add(newBid);
+        String desc = "ID:" + getVId() + "Maker:" + getCarMaker() + " and Model:" + getCarModel();
+        return desc;
     }
 }

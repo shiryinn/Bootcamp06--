@@ -42,6 +42,6 @@ public class Buyer {
 
     // accessor method
     public String description() {
-        return this.buyerId + " " + getGivenName() + " " + getFamilyName();
+        return this.buyerId + " | " + getGivenName() + " " + getFamilyName();
     }
 }
