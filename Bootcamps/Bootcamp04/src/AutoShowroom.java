@@ -50,7 +50,7 @@ public class AutoShowroom {
                     this.checkOptions(option);
                 }
             } catch (Exception e) {
-                System.out.println("Please choose a valid option!!!");
+                System.out.println("Please enter a valid option above!");
                 this.printStatus(true);
             }
             if (!display) {
@@ -79,7 +79,7 @@ public class AutoShowroom {
             System.out.println("|         Goodbye! See you again!          |");
             System.out.println("+------------------------------------------+");
         } else {
-            System.out.println("Please enter a valid option");
+            System.out.println("Please enter a valid option above!");
             this.printStatus(true);
         }
     }
@@ -262,8 +262,8 @@ public class AutoShowroom {
                 Scanner scannerVehicleId = new Scanner(System.in);
                 System.out.print("Vehicle's ID: ");
                 vehId = scannerVehicleId.nextInt();
-                for (Vehicle v : this.vehicles) {
-                    if (v.getVId() == vehId) {
+                for (Vehicle vehicle : this.vehicles) {
+                    if (vehicle.getVId() == vehId) {
                         condition = false;
                     }
                     else {
