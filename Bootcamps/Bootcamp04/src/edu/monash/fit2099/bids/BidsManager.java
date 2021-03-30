@@ -20,4 +20,5 @@ public class BidsManager {
         Bid newBid = new Bid((bidIds+1), buyer, bidPrice, bidDate);
         bidsManage.put(buyerId, newBid);
     }
+
 }
