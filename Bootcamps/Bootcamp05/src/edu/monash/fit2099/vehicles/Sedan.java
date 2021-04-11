@@ -1,5 +1,6 @@
 package edu.monash.fit2099.vehicles;
 
+import edu.monash.fit2099.exceptions.SedanException;
 import edu.monash.fit2099.exceptions.VehicleException;
 
 public class Sedan extends Vehicle {
@@ -12,7 +13,7 @@ public class Sedan extends Vehicle {
         if (setSeats(newSeats)) {
             this.seats = newSeats;
         } else {
-            throw new VehicleException("Invalid Number of Seats");
+            throw new SedanException("Invalid Number of Seats");
         }
     }
 
@@ -21,7 +22,7 @@ public class Sedan extends Vehicle {
         if (setSeats(newSeats)) {
             this.seats = newSeats;
         } else {
-            throw new VehicleException("Invalid Number of Seats");
+            throw new SedanException("Invalid Number of Seats");
         }
     }
 

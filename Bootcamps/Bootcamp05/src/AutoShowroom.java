@@ -64,7 +64,7 @@ public class AutoShowroom {
     }
 
     // check if input int is valid
-    private void checkOptions(int option) throws BidException {
+    private void checkOptions(int option) throws VehicleException, BidException {
         if (option == 1) {
             this.createSedan();
         } else if (option == 2) {
@@ -93,19 +93,16 @@ public class AutoShowroom {
         String[] vehicleName = inputVehicleName();
         int seatsNo = inputVehSeats();
         // create new instance for Sedan
-        Sedan newSedan = null;
         try {
-            newSedan = new Sedan(vehicleName[0], vehicleName[1], vId, seatsNo);
+            Sedan newSedan = new Sedan(vehicleName[0], vehicleName[1], vId, seatsNo);
             // add into arraylist
             this.vehicles.add(newSedan);
             System.out.println("Vehicle (Sedan) successfully added!");
             System.out.println("Vehicle details:");
             System.out.println(newSedan.description() + " | Seats: " + seatsNo);
-        }
-        catch (SedanException e) {
+        } catch (SedanException e) {
             System.out.println(e.getMessage());
-        }
-        catch (VehicleException e) {
+        } catch (VehicleException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -116,19 +113,16 @@ public class AutoShowroom {
         int wheelsNo = inputVehWheels();
         int vehCapacity = inputVehCapacity();
         // create new instance for Truck
-        Truck newTruck = null;
         try {
-            newTruck = new Truck(vehicleName[0], vehicleName[1], vId, wheelsNo, vehCapacity);
+            Truck newTruck = new Truck(vehicleName[0], vehicleName[1], vId, wheelsNo, vehCapacity);
             // add into arraylist
             this.vehicles.add(newTruck);
             System.out.println("Vehicle (Truck) successfully added!");
             System.out.println("Vehicle details:");
             System.out.println(newTruck.description() + " | Wheels: " + wheelsNo + " | Capacity: " + vehCapacity);
-        }
-        catch (TruckException e) {
+        } catch (TruckException e) {
             System.out.println(e.getMessage());
-        }
-        catch (VehicleException e) {
+        } catch (VehicleException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -136,25 +130,23 @@ public class AutoShowroom {
     public void createBuyer() {
         String[] buyerName = inputBuyerName();
         int buyerId = randomId();
-        Buyer newBuyer = Buyer.getInstance(buyerName[0], buyerName[1]);
-        if (newBuyer != null) {
-            this.buyersRec.put(buyerId, newBuyer);
-            System.out.println("Buyer is successfully added!");
-            System.out.println("Buyer's details:");
-            System.out.println(newBuyer.description());
-        } else {
-            System.out.println("Something is wrong with the buyer's values!!!");
-        }
+        Buyer newBuyer = Buyer.getInstance(buyerId, buyerName[0], buyerName[1]);
+        this.buyersRec.put(buyerId, newBuyer);
+        System.out.println("Buyer is successfully added!");
+        System.out.println("Buyer's details:");
+        System.out.println(newBuyer.description());
     }
 
-    public void createBid() throws BidException {
+    public void createBid() {
         int buyerId = inputBuyerId();
         double bidPrice = inputBidPrice();
         Date bidDate = inputBidDate();
         int vehId = inputVehId();
         for (Vehicle vehicle : vehicles) {
-            if (vehicle.getVId() != vehId) {
-                vehicle.getManageBids().addBid(buyerId, bidPrice, bidDate);
+            try {
+                if (vehicle.getVId() != vehId) {
+                    vehicle.getManageBids().addBid(buyerId, bidPrice, bidDate);
+                }
                 System.out.println("Bid is successfully added!");
                 Format formatter = new SimpleDateFormat("dd/MM/yyyy");
                 String formatDate = formatter.format(bidDate);
@@ -162,6 +154,8 @@ public class AutoShowroom {
                         + buyersRec.get(buyerId).description()
                         + " | Price: $" + String.format("%.2f", bidPrice)
                         + " | Date: " + formatDate);
+            } catch (BidException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -169,8 +163,8 @@ public class AutoShowroom {
     private void displayFleet() {
         for (int i = 0; i < vehicles.size(); i++) {
             String carDesc = "Car (" + (i+1) + ") " + vehicles.get(i).description() + " \n";
-            System.out.print(carDesc);
             BidsManager vehBids = vehicles.get(i).getManageBids();
+            System.out.print(carDesc);
             HashMap<Integer, Bid> bids = vehBids.getBidsManage();
             for (Integer currentBuyer : bids.keySet()) {
                 System.out.println("------------------------------------");
@@ -223,7 +217,7 @@ public class AutoShowroom {
                 Scanner scannerSeats = new Scanner(System.in);
                 System.out.print("Enter Sedan's seats: ");
                 condition = false;
-                seats = scannerSeats.nextInt();
+                seats = Integer.parseInt(scannerSeats.nextLine());
             } catch (Exception e) {
                 System.out.println("Invalid integer! Please enter a valid integer.");
             }
@@ -240,7 +234,7 @@ public class AutoShowroom {
                 Scanner scannerWheels = new Scanner(System.in);
                 System.out.print("Enter number of wheels: ");
                 condition = false;
-                wheels = scannerWheels.nextInt();
+                wheels = Integer.parseInt(scannerWheels.nextLine());
             } catch (Exception e) {
                 System.out.println("Invalid integer! Please enter a valid integer.");
             }
@@ -256,7 +250,7 @@ public class AutoShowroom {
                 Scanner scannerCapacity = new Scanner(System.in);
                 System.out.print("Enter capacity: ");
                 condition = false;
-                capacity = scannerCapacity.nextInt();
+                capacity = Integer.parseInt(scannerCapacity.nextLine());
             } catch (Exception e) {
                 System.out.println("Invalid integer! Please enter a valid integer.");
             }

@@ -4,10 +4,8 @@ import edu.monash.fit2099.buyers.Buyer;
 import edu.monash.fit2099.exceptions.BidException;
 
 import java.text.Format;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Scanner;
 
 public class Bid {
 
@@ -34,8 +32,8 @@ public class Bid {
         this.bidId = newBidId;
     }
 
-    public void setBuyer(String buyerGivName, String buyerFamName) {
-        this.buyer = Buyer.getInstance(buyerGivName, buyerFamName);
+    public void setBuyer(int newBuyerId, String buyerGivName, String buyerFamName) {
+        this.buyer = Buyer.getInstance(newBuyerId, buyerGivName, buyerFamName);
     }
 
     public boolean setBidPrice(double newBidPrice) {
@@ -52,7 +50,7 @@ public class Bid {
     public boolean setBidDate(Date newBidDate) {
 
         boolean validDate = false;
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         formatter.setLenient(false);
         // check format is correct
         if (newBidDate.equals(formatter.format(newBidDate)) && (newBidDate.getDay() >= 1 && newBidDate.getDay() <= 31) && (newBidDate.getMonth() >= 1 && newBidDate.getMonth() <= 12) && (newBidDate.getYear() >= 1930 && newBidDate.getYear() <=2021)) {
