@@ -1,3 +1,10 @@
+/**
+ * AutoShowroom class
+ * @author Lim Shir Yin
+ * @version
+ * @see
+ */
+
 import edu.monash.fit2099.bids.Bid;
 import edu.monash.fit2099.bids.BidsManager;
 import edu.monash.fit2099.buyers.Buyer;

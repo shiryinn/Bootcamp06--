@@ -1,3 +1,9 @@
+/**
+ * Bid Class
+ * @author Lim Shir Yin
+ * @version 11/04/2021
+ * @see Bid, setBidDate, setBidPrice
+ */
 package edu.monash.fit2099.bids;
 
 import edu.monash.fit2099.buyers.Buyer;
