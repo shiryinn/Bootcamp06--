@@ -1,6 +1,7 @@
 package edu.monash.fit2099.bids;
 
 import edu.monash.fit2099.buyers.Buyer;
+import edu.monash.fit2099.exceptions.BidException;
 
 import java.text.Format;
 import java.text.ParseException;
@@ -17,11 +18,16 @@ public class Bid {
     private Date bidDate;
 
     // Constructor
-    public Bid(int newBidId, Buyer newBuyer, double newBidPrice, Date newBidDate){
-        this.bidId = newBidId;
-        this.buyer = newBuyer;
-        this.bidPrice = newBidPrice;
-        this.bidDate = newBidDate;
+    public Bid(int newBidId, Buyer newBuyer, double newBidPrice, Date newBidDate) throws BidException {
+
+        if (setBidPrice(newBidPrice) && setBidDate(newBidDate)) {
+            this.bidId = newBidId;
+            this.buyer = newBuyer;
+            this.bidPrice = newBidPrice;
+            this.bidDate = newBidDate;
+        } else {
+            throw new BidException("Invalid Bid Price OR Bid Date");
+        }
     }
 
     public void setBidId(int newBidId){

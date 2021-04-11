@@ -1,18 +1,28 @@
 package edu.monash.fit2099.vehicles;
 
+import edu.monash.fit2099.exceptions.VehicleException;
+
 public class Sedan extends Vehicle {
 
     private int seats;   // number of seats
 
     // constructors
-    public Sedan(String newMaker, String newModel, int newSeats) {
+    public Sedan(String newMaker, String newModel, int newSeats) throws VehicleException {
         super(newMaker, newModel);
-        this.seats = newSeats;
+        if (setSeats(newSeats)) {
+            this.seats = newSeats;
+        } else {
+            throw new VehicleException("Invalid Number of Seats");
+        }
     }
 
-    public Sedan(String newMaker, String newModel, int newId, int newSeats) {
+    public Sedan(String newMaker, String newModel, int newId, int newSeats) throws VehicleException {
         super(newMaker, newModel, newId);
-        this.seats = newSeats;
+        if (setSeats(newSeats)) {
+            this.seats = newSeats;
+        } else {
+            throw new VehicleException("Invalid Number of Seats");
+        }
     }
 
     public boolean setSeats(int newSeats) {

@@ -1,20 +1,30 @@
 package edu.monash.fit2099.vehicles;
 
+import edu.monash.fit2099.exceptions.VehicleException;
+
 public class Truck extends Vehicle {
 
     private int capacity;  // in tons
     private int wheels;
 
-    public Truck(String newMaker, String newModel, int newCapacity, int newWheels) {
+    public Truck(String newMaker, String newModel, int newCapacity, int newWheels) throws VehicleException {
         super(newMaker, newModel);
-        this.capacity = newCapacity;
-        this.wheels = newWheels;
+        if (setCapacity(newCapacity) && setWheels(newWheels)) {
+            this.capacity = newCapacity;
+            this.wheels = newWheels;
+        } else {
+            throw new VehicleException("Invalid Capacity OR Number of Wheels");
+        }
     }
 
-    public Truck(String newMaker, String newModel, int newId, int newCapacity, int newWheels) {
+    public Truck(String newMaker, String newModel, int newId, int newCapacity, int newWheels) throws VehicleException {
         super(newMaker, newModel, newId);
-        this.capacity = newCapacity;
-        this.wheels = newWheels;
+        if (setCapacity(newCapacity) && setWheels(newWheels)) {
+            this.capacity = newCapacity;
+            this.wheels = newWheels;
+        } else {
+            throw new VehicleException("Invalid Capacity OR Number of Wheels");
+        }
     }
 
     public boolean setCapacity(int newCapacity) {
