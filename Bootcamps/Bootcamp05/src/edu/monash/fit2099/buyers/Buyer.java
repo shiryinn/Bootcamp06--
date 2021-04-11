@@ -7,14 +7,31 @@ public class Buyer {
     private String familyName;
 
     // Constructors
-    public Buyer(int newBuyerId, String newGivenName, String newFamilyName) {
+    private Buyer(int newBuyerId, String newGivenName, String newFamilyName) {
         this.buyerId = newBuyerId;
         this.givenName = newGivenName;
         this.familyName = newFamilyName;
     }
 
-    public Buyer(int newBuyerId) {
-        this.buyerId = newBuyerId;
+    private Buyer(int newBuyerId) { this.buyerId = newBuyerId; }
+
+    public static Buyer getInstance(int newBuyerId) {
+        Buyer newBuyer = new Buyer(newBuyerId);
+        newBuyer.buyerId = newBuyerId;
+        return newBuyer;
+    }
+
+    // Zero parameter constructor
+    private Buyer() {}
+
+    // Static Factory Method
+    public static Buyer getInstance(String newGivenName, String newFamilyName) {
+        Buyer newBuyer = new Buyer();
+        if (newBuyer.setGivenName(newGivenName) && newBuyer.setFamilyName(newFamilyName)) {
+            newBuyer.givenName = newGivenName;
+            newBuyer.familyName = newFamilyName;
+        }
+        return newBuyer;
     }
 
     public boolean setGivenName(String newGivenName) {

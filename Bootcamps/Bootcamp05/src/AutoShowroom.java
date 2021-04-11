@@ -1,6 +1,10 @@
 import edu.monash.fit2099.bids.Bid;
 import edu.monash.fit2099.bids.BidsManager;
 import edu.monash.fit2099.buyers.Buyer;
+import edu.monash.fit2099.exceptions.BidException;
+import edu.monash.fit2099.exceptions.SedanException;
+import edu.monash.fit2099.exceptions.TruckException;
+import edu.monash.fit2099.exceptions.VehicleException;
 import edu.monash.fit2099.vehicles.Sedan;
 import edu.monash.fit2099.vehicles.Truck;
 import edu.monash.fit2099.vehicles.Vehicle;
@@ -60,7 +64,7 @@ public class AutoShowroom {
     }
 
     // check if input int is valid
-    private void checkOptions(int option) {
+    private void checkOptions(int option) throws BidException {
         if (option == 1) {
             this.createSedan();
         } else if (option == 2) {
@@ -89,12 +93,21 @@ public class AutoShowroom {
         String[] vehicleName = inputVehicleName();
         int seatsNo = inputVehSeats();
         // create new instance for Sedan
-        Sedan newSedan = new Sedan(vehicleName[0], vehicleName[1], vId, seatsNo);
-        // add into arraylist
-        this.vehicles.add(newSedan);
-        System.out.println("Vehicle (Sedan) successfully added!");
-        System.out.println("Vehicle details:");
-        System.out.println(newSedan.description() + " | Seats: " + seatsNo);
+        Sedan newSedan = null;
+        try {
+            newSedan = new Sedan(vehicleName[0], vehicleName[1], vId, seatsNo);
+            // add into arraylist
+            this.vehicles.add(newSedan);
+            System.out.println("Vehicle (Sedan) successfully added!");
+            System.out.println("Vehicle details:");
+            System.out.println(newSedan.description() + " | Seats: " + seatsNo);
+        }
+        catch (SedanException e) {
+            System.out.println(e.getMessage());
+        }
+        catch (VehicleException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void createTruck() {
@@ -103,25 +116,38 @@ public class AutoShowroom {
         int wheelsNo = inputVehWheels();
         int vehCapacity = inputVehCapacity();
         // create new instance for Truck
-        Truck newTruck = new Truck(vehicleName[0], vehicleName[1], vId, wheelsNo, vehCapacity);
-        // add into arraylist
-        this.vehicles.add(newTruck);
-        System.out.println("Vehicle (Truck) successfully added!");
-        System.out.println("Vehicle details:");
-        System.out.println(newTruck.description() + " | Wheels: " + wheelsNo + " | Capacity: " + vehCapacity);
+        Truck newTruck = null;
+        try {
+            newTruck = new Truck(vehicleName[0], vehicleName[1], vId, wheelsNo, vehCapacity);
+            // add into arraylist
+            this.vehicles.add(newTruck);
+            System.out.println("Vehicle (Truck) successfully added!");
+            System.out.println("Vehicle details:");
+            System.out.println(newTruck.description() + " | Wheels: " + wheelsNo + " | Capacity: " + vehCapacity);
+        }
+        catch (TruckException e) {
+            System.out.println(e.getMessage());
+        }
+        catch (VehicleException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void createBuyer() {
         String[] buyerName = inputBuyerName();
         int buyerId = randomId();
-        Buyer newBuyer = new Buyer(buyerId, buyerName[0], buyerName[1]);
-        this.buyersRec.put(buyerId, newBuyer);
-        System.out.println("Buyer is successfully added!");
-        System.out.println("Buyer's details:");
-        System.out.println(newBuyer.description());
+        Buyer newBuyer = Buyer.getInstance(buyerName[0], buyerName[1]);
+        if (newBuyer != null) {
+            this.buyersRec.put(buyerId, newBuyer);
+            System.out.println("Buyer is successfully added!");
+            System.out.println("Buyer's details:");
+            System.out.println(newBuyer.description());
+        } else {
+            System.out.println("Something is wrong with the buyer's values!!!");
+        }
     }
 
-    public void createBid() {
+    public void createBid() throws BidException {
         int buyerId = inputBuyerId();
         double bidPrice = inputBidPrice();
         Date bidDate = inputBidDate();

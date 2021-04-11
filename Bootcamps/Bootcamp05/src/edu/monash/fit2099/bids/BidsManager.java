@@ -1,5 +1,6 @@
 package edu.monash.fit2099.bids;
 import edu.monash.fit2099.buyers.Buyer;
+import edu.monash.fit2099.exceptions.BidException;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -14,9 +15,9 @@ public class BidsManager {
         return this.bidsManage;
     }
 
-    public void addBid(int buyerId, double bidPrice, Date bidDate) {
+    public void addBid(int buyerId, double bidPrice, Date bidDate) throws BidException {
         int bidIds = bidsManage.size();
-        Buyer buyer = new Buyer(buyerId);
+        Buyer buyer = Buyer.getInstance(buyerId);
         Bid newBid = new Bid((bidIds+1), buyer, bidPrice, bidDate);
         bidsManage.put(buyerId, newBid);
     }

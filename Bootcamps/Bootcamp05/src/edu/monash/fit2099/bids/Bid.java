@@ -34,8 +34,8 @@ public class Bid {
         this.bidId = newBidId;
     }
 
-    public void setBuyer(int newBuyerId, String buyerGivName, String buyerFamName) {
-        this.buyer = new Buyer(newBuyerId, buyerGivName, buyerFamName);
+    public void setBuyer(String buyerGivName, String buyerFamName) {
+        this.buyer = Buyer.getInstance(buyerGivName, buyerFamName);
     }
 
     public boolean setBidPrice(double newBidPrice) {
