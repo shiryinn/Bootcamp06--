@@ -2,9 +2,12 @@
  * AutoShowroom Class
  * @author Lim Shir Yin
  * @version 11/04/2021
- * @see {@link edu.monash.fit2099.vehicles.Vehicle}
- * @see {@link edu.monash.fit2099.buyers.Buyer}
- * @see {@link edu.monash.fit2099.bids.Bid}
+ * @see edu.monash.fit2099.vehicles.Vehicle
+ * @see edu.monash.fit2099.buyers.Buyer
+ * @see edu.monash.fit2099.bids.Bid
+ * @see edu.monash.fit2099.bids.BidsManager
+ * @see edu.monash.fit2099.vehicles.Sedan
+ * @see edu.monash.fit2099.vehicles.Truck
  */
 
 import edu.monash.fit2099.bids.Bid;
@@ -35,7 +38,12 @@ public class AutoShowroom {
         return this.buyersRec;
     }
 
-    // print console
+    /**
+     * To print console
+     * @param display
+     * @return none
+     * @exception Exception
+     */
     public void printStatus(boolean display) {
         boolean condition = true;
         while (condition) {
@@ -72,7 +80,12 @@ public class AutoShowroom {
         }
     }
 
-    // check if input int is valid
+    /**
+     * To check if option enter is valid
+     * @param option
+     * @return none
+     * No exceptions is used.
+     */
     private void checkOptions(int option)  {
         if (option == 1) {
             this.createSedan();
@@ -97,6 +110,11 @@ public class AutoShowroom {
         }
     }
 
+    /**
+     * To create a Vehicle instance type Sedan
+     * @exception SedanException
+     * @exception VehicleException
+     */
     public void createSedan() {
         int vId = randomId();
         String[] vehicleName = inputVehicleName();
@@ -116,6 +134,11 @@ public class AutoShowroom {
         }
     }
 
+    /**
+     * To create a Vehicle instance type Truck
+     * @exception TruckException
+     * @exception VehicleException
+     */
     public void createTruck() {
         int vId = randomId();
         String[] vehicleName = inputVehicleName();
@@ -136,6 +159,10 @@ public class AutoShowroom {
         }
     }
 
+    /**
+     * To create a Buyer instance.
+     * @exception Exception
+     */
     public void createBuyer() {
         String[] buyerName = inputBuyerName();
         int buyerId = randomId();
@@ -150,6 +177,11 @@ public class AutoShowroom {
         }
     }
 
+    /**
+     * To create a Bid instance.
+     * @exception ParseException
+     * @exception BidException
+     */
     public void createBid() {
         int buyerId = inputBuyerId();
         double bidPrice = inputBidPrice();
@@ -178,6 +210,9 @@ public class AutoShowroom {
         }
     }
 
+    /**
+     * To display fleet showing Vehicles and Bids added.
+     */
     private void displayFleet() {
         for (int i = 0; i < vehicles.size(); i++) {
             String carDesc = "Car (" + (i+1) + ") " + vehicles.get(i).description() + " \n";
@@ -193,6 +228,9 @@ public class AutoShowroom {
         }
     }
 
+    /**
+     * To display Buyers added by console input
+     */
     public void displayBuyers() {
         int buyersCount = 1;
         System.out.println("Buyers:");
@@ -203,7 +241,9 @@ public class AutoShowroom {
         }
     }
 
-    // generate random Id
+    /**
+     * To generate random Id
+     */
     private static int randomId(){
         Random random = new Random();
         int low = 1;
@@ -212,6 +252,10 @@ public class AutoShowroom {
         return randomId;
     }
 
+    /**
+     * IO Console Input for Vehicle Name
+     * @return A string list with Vehicle's maker and model
+     */
     private static String[] inputVehicleName() {
         System.out.println("Please enter the vehicle's details:");
         System.out.println("------------------------------------");
@@ -226,7 +270,11 @@ public class AutoShowroom {
         return new String[]{vehicleMaker, vehicleModel};
     }
 
-    // Sedan's info IO console
+    /**
+     * IO Console Input for Vehicle Seats for Vehicle Type Sedan
+     * @return int (seats)
+     * @exception Exception
+     */
     public static int inputVehSeats() {
         int seats = 0;
         boolean condition = true;
@@ -243,7 +291,11 @@ public class AutoShowroom {
         return seats;
     }
 
-    // Truck's info IO console
+    /**
+     * IO Console Input for Vehicle's Wheels for Vehicle Type Truck
+     * @return int (wheels)
+     * @exception Exception
+     */
     public static int inputVehWheels() {
         int wheels = 0;
         boolean condition = true;
@@ -260,6 +312,11 @@ public class AutoShowroom {
         return wheels;
     }
 
+    /**
+     * IO Console Input for Vehicle's Capacity for Vehicle Type Truck
+     * @return int (capacity)
+     * @exception Exception
+     */
     public static int inputVehCapacity() {
         int capacity = 0;
         boolean condition = true;
@@ -276,7 +333,10 @@ public class AutoShowroom {
         return capacity;
     }
 
-    // input for buyer's name
+    /**
+     * IO Console Input for Buyer's Given Name and Family Name
+     * @return a string list with buyer's given name, family name
+     */
     private static String[] inputBuyerName(){
         System.out.println("Please enter the details below:");
         System.out.println("------------------------------------");
@@ -292,6 +352,11 @@ public class AutoShowroom {
         return new String[]{buyerGivName, buyerFamName};
     }
 
+    /**
+     * IO Console Input for Vehicle's ID
+     * @return int
+     * @exception Exception
+     */
     private int inputVehId() {
         int vehId = 0;
         boolean condition = true;
@@ -308,6 +373,11 @@ public class AutoShowroom {
         return vehId;
     }
 
+    /**
+     * IO Console Input for Buyer's ID
+     * @return int
+     * @exception Exception
+     */
     private int inputBuyerId(){
         int buyerId = 0;
         boolean condition = true;
@@ -329,6 +399,11 @@ public class AutoShowroom {
         return buyerId;
     }
 
+    /**
+     * IO Console Input for Bid's Price
+     * @return double (Bid's Price)
+     * @exception Exception
+     */
     private static double inputBidPrice(){
         double buyerBidPrice = 0;
         boolean condition = true;
@@ -345,6 +420,11 @@ public class AutoShowroom {
         return buyerBidPrice;
     }
 
+    /**
+     * IO Console Input for Bid's Date
+     * @return Date
+     * @exception ParseException
+     */
     private static Date inputBidDate() {
         Date buyerBidDate = null;
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
