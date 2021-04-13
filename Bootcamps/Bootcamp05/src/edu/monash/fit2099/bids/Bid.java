@@ -12,7 +12,6 @@ import edu.monash.fit2099.exceptions.BidException;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class Bid {

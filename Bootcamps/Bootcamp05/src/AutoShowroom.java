@@ -71,7 +71,7 @@ public class AutoShowroom {
     }
 
     // check if input int is valid
-    private void checkOptions(int option) {
+    private void checkOptions(int option)  {
         if (option == 1) {
             this.createSedan();
         } else if (option == 2) {
@@ -154,19 +154,21 @@ public class AutoShowroom {
         Date bidDate = inputBidDate();
         int vehId = inputVehId();
         for (Vehicle vehicle : vehicles) {
-            try {
-                if (vehicle.getVId() != vehId) {
+            if (vehicle.getVId() != vehId) {
+                try {
                     vehicle.getManageBids().addBid(buyerId, bidPrice, bidDate);
+                    System.out.println("Bid is successfully added!");
+                    Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    String formatDate = formatter.format(bidDate);
+                    System.out.println("Bid's details: "
+                            + buyersRec.get(buyerId).description()
+                            + " | Price: $" + String.format("%.2f", bidPrice)
+                            + " | Date: " + formatDate);
+                } catch (ParseException e) {
+                    System.out.println("Invalid Date Format");
+                } catch (BidException e) {
+                    System.out.println(e.getMessage());
                 }
-                System.out.println("Bid is successfully added!");
-                Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-                String formatDate = formatter.format(bidDate);
-                System.out.println("Bid's details: "
-                        + buyersRec.get(buyerId).description()
-                        + " | Price: $" + String.format("%.2f", bidPrice)
-                        + " | Date: " + formatDate);
-            } catch (BidException | ParseException e) {
-                System.out.println(e.getMessage());
             }
         }
     }
