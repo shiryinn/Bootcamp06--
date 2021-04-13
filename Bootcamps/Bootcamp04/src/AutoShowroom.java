@@ -127,7 +127,7 @@ public class AutoShowroom {
         Date bidDate = inputBidDate();
         int vehId = inputVehId();
         for (Vehicle vehicle : vehicles) {
-            if (vehId == vehicle.getVId()) {
+            if (vehicle.getVId() != vehId) {
                 vehicle.getManageBids().addBid(buyerId, bidPrice, bidDate);
                 System.out.println("Bid is successfully added!");
                 Format formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -262,16 +262,7 @@ public class AutoShowroom {
                 Scanner scannerVehicleId = new Scanner(System.in);
                 System.out.print("Vehicle's ID: ");
                 vehId = scannerVehicleId.nextInt();
-                for (Vehicle vehicle : this.vehicles) {
-                    if (vehicle.getVId() == vehId) {
-                        condition = false;
-                    }
-                    else {
-                        // check vehicle id match
-                        System.out.println("Vehicle does not exist. Please enter again: ");
-                        condition = true;
-                    }
-                }
+                condition = false;
             } catch (Exception e) {
                 System.out.println("Invalid ID! Please enter a valid ID.");
             }

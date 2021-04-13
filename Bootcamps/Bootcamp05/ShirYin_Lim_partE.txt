@@ -1,0 +1,17 @@
+FIT2099 Bootcamp 5
+Name: Lim Shir Yin
+Student ID: 31059546
+
+Throwing Exceptions
+
+Pros: Separate error-handling codes from the normal application, making the code more readable and robust. Able to handle specific type of exceptions.
+
+Cons: Throwing exceptions can trap only runtime errors.
+
+
+Static Factory Methods
+
+Pros: The value will not pass through the getInstance method if the value does not meet the condition. Throwing exceptions is not necessary in static factory methods.
+
+Cons: We are not able to know what kind of errors we are handling.
+
