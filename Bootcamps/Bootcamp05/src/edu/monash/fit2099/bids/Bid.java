@@ -10,7 +10,9 @@ import edu.monash.fit2099.buyers.Buyer;
 import edu.monash.fit2099.exceptions.BidException;
 
 import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Bid {
@@ -22,13 +24,11 @@ public class Bid {
     private Date bidDate;
 
     // Constructor
-    public Bid(int newBidId, Buyer newBuyer, double newBidPrice, Date newBidDate) throws BidException {
+    public Bid(int newBidId, Buyer newBuyer, double newBidPrice, Date newBidDate) throws BidException, ParseException {
 
         if (setBidPrice(newBidPrice) && setBidDate(newBidDate)) {
             this.bidId = newBidId;
             this.buyer = newBuyer;
-            this.bidPrice = newBidPrice;
-            this.bidDate = newBidDate;
         } else {
             throw new BidException("Invalid Bid Price OR Bid Date");
         }
@@ -38,7 +38,7 @@ public class Bid {
         this.bidId = newBidId;
     }
 
-    public void setBuyer(int newBuyerId, String buyerGivName, String buyerFamName) {
+    public void setBuyer(int newBuyerId, String buyerGivName, String buyerFamName) throws Exception {
         this.buyer = Buyer.getInstance(newBuyerId, buyerGivName, buyerFamName);
     }
 
@@ -53,13 +53,17 @@ public class Bid {
         return validPrice;
     }
 
-    public boolean setBidDate(Date newBidDate) {
+    public boolean setBidDate(Date newBidDate) throws ParseException {
 
         boolean validDate = false;
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         formatter.setLenient(false);
+        final String start = "01/01/1930";
+        final String end = "31/12/2021";
+        Date startDate = formatter.parse(start);
+        Date endDate = formatter.parse(end);
         // check format is correct
-        if (newBidDate.equals(formatter.format(newBidDate)) && (newBidDate.getDay() >= 1 && newBidDate.getDay() <= 31) && (newBidDate.getMonth() >= 1 && newBidDate.getMonth() <= 12) && (newBidDate.getYear() >= 1930 && newBidDate.getYear() <=2021)) {
+        if (newBidDate.before(endDate) && newBidDate.after(startDate)) {
             validDate = true;
             this.bidDate = newBidDate;
         }

@@ -71,7 +71,7 @@ public class AutoShowroom {
     }
 
     // check if input int is valid
-    private void checkOptions(int option) throws VehicleException, BidException {
+    private void checkOptions(int option) {
         if (option == 1) {
             this.createSedan();
         } else if (option == 2) {
@@ -137,11 +137,15 @@ public class AutoShowroom {
     public void createBuyer() {
         String[] buyerName = inputBuyerName();
         int buyerId = randomId();
-        Buyer newBuyer = Buyer.getInstance(buyerId, buyerName[0], buyerName[1]);
-        this.buyersRec.put(buyerId, newBuyer);
-        System.out.println("Buyer is successfully added!");
-        System.out.println("Buyer's details:");
-        System.out.println(newBuyer.description());
+        try {
+            Buyer newBuyer = Buyer.getInstance(buyerId, buyerName[0], buyerName[1]);
+            this.buyersRec.put(buyerId, newBuyer);
+            System.out.println("Buyer is successfully added!");
+            System.out.println("Buyer's details:");
+            System.out.println(newBuyer.description());
+        } catch (Exception e) {
+            System.out.println("Incorrect Length of Given Name or Family Name");
+        }
     }
 
     public void createBid() {
@@ -161,7 +165,7 @@ public class AutoShowroom {
                         + buyersRec.get(buyerId).description()
                         + " | Price: $" + String.format("%.2f", bidPrice)
                         + " | Date: " + formatDate);
-            } catch (BidException e) {
+            } catch (BidException | ParseException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -334,7 +338,7 @@ public class AutoShowroom {
         return buyerBidPrice;
     }
 
-    private static Date inputBidDate(){
+    private static Date inputBidDate() {
         Date buyerBidDate = null;
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         boolean condition = true;
