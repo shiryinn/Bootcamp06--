@@ -1,8 +1,10 @@
 /**
- * AutoShowroom class
+ * AutoShowroom Class
  * @author Lim Shir Yin
- * @version
- * @see
+ * @version 11/04/2021
+ * @see {@link edu.monash.fit2099.vehicles.Vehicle}
+ * @see {@link edu.monash.fit2099.buyers.Buyer}
+ * @see {@link edu.monash.fit2099.bids.Bid}
  */
 
 import edu.monash.fit2099.bids.Bid;
