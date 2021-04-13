@@ -1,3 +1,11 @@
+/**
+ * An Abstract Vehicle Class
+ * @author Lim Shir Yin
+ * @version 11/04/2021
+ * @see edu.monash.fit2099.bids.BidsManager
+ * @see edu.monash.fit2099.exceptions.VehicleException
+ */
+
 package edu.monash.fit2099.vehicles;
 
 import edu.monash.fit2099.bids.BidsManager;
@@ -12,6 +20,12 @@ abstract public class Vehicle {
     private int vId;
     private BidsManager manageBids = new BidsManager();
 
+    /**
+     * Vehicle Constructor with 2 parameters
+     * @param newMaker
+     * @param newModel
+     * @throws VehicleException
+     */
     public Vehicle(String newMaker, String newModel) throws VehicleException {
 
         if (setCarMaker(newMaker) && setCarModel(newModel)) {
@@ -21,6 +35,13 @@ abstract public class Vehicle {
         }
     }
 
+    /**
+     * Vehicle Constructor with 3 parameters
+     * @param newMaker
+     * @param newModel
+     * @param newId
+     * @throws VehicleException
+     */
     public Vehicle(String newMaker, String newModel, int newId) throws VehicleException{
 
         if (setCarMaker(newMaker) && setCarModel(newModel)) {
@@ -30,7 +51,10 @@ abstract public class Vehicle {
         }
     }
 
-    // generate random Id
+    /**
+     * To generate random ID
+     * @return int
+     */
     private static int randomId(){
         Random random = new Random();
         int low = 1;
@@ -39,8 +63,17 @@ abstract public class Vehicle {
         return randomId;
     }
 
+    /**
+     * To get Vehicle's ID (getter method)
+     * @return int
+     */
     public int getVId() { return this.vId; }
 
+    /**
+     * To set Car Maker (setter method)
+     * @param newCarMaker
+     * @return boolean
+     */
     public boolean setCarMaker(String newCarMaker) {
 
         boolean validCarMaker = false;
@@ -51,6 +84,11 @@ abstract public class Vehicle {
         return validCarMaker;
     }
 
+    /**
+     * To set Car Model (setter method)
+     * @param newCarModel
+     * @return boolean
+     */
     public boolean setCarModel(String newCarModel) {
 
         boolean validCarMaker = false;
@@ -61,16 +99,32 @@ abstract public class Vehicle {
         return validCarMaker;
     }
 
+    /**
+     * To get Vehicle's Maker (getter method)
+     * @return String
+     */
     public String getCarMaker() {
         return this.carMaker;
     }
 
+    /**
+     * To get Vehicle's Model (getter method)
+     * @return String
+     */
     public String getCarModel() {
         return this.carModel;
     }
 
+    /**
+     * To get the object called from BidsManager class
+     * @return BidsManager
+     */
     public BidsManager getManageBids() { return this.manageBids; }
 
+    /**
+     * To return the description of the Vehicle by using getter method
+     * @return String
+     */
     public String description() {
         String desc = "ID: " + getVId() + " | Maker: " + getCarMaker() + " | Model: " + getCarModel();
         return desc;

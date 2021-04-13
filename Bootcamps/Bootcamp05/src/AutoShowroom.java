@@ -160,7 +160,7 @@ public class AutoShowroom {
     }
 
     /**
-     * To create a Buyer instance.
+     * To create a Buyer instance
      * @exception Exception
      */
     public void createBuyer() {
@@ -178,7 +178,7 @@ public class AutoShowroom {
     }
 
     /**
-     * To create a Bid instance.
+     * To create a Bid instance
      * @exception ParseException
      * @exception BidException
      */
@@ -243,6 +243,7 @@ public class AutoShowroom {
 
     /**
      * To generate random Id
+     * @return int
      */
     private static int randomId(){
         Random random = new Random();
