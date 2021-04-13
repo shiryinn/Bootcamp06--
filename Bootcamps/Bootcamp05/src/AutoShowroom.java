@@ -202,9 +202,6 @@ public class AutoShowroom {
                 } catch (BidException e) {
                     System.out.println(e.getMessage());
                 }
-            } else {
-                System.out.println("Invalid Vehicle ID! Vehicle's ID does not exist.");
-                break;
             }
         }
     }
