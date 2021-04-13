@@ -1,3 +1,9 @@
+/**
+ * A Buyer Class which shows the Buyer's details
+ * @author Lim Shir Yin
+ * @version 11/04/2021
+ */
+
 package edu.monash.fit2099.buyers;
 
 public class Buyer {
@@ -6,7 +12,13 @@ public class Buyer {
     private String givenName;
     private String familyName;
 
-    // Constructors
+    /**
+     * Buyer Constructor
+     * @param newBuyerId
+     * @param newGivenName
+     * @param newFamilyName
+     * @throws Exception
+     */
     private Buyer(int newBuyerId, String newGivenName, String newFamilyName) throws Exception {
         if (setGivenName(newGivenName) && setFamilyName(newFamilyName)) {
             this.buyerId = newBuyerId;
@@ -16,24 +28,49 @@ public class Buyer {
         }
     }
 
+    /**
+     * A get instance method to get the details from Buyer class
+     * @param newBuyerId
+     * @param newGivenName
+     * @param newFamilyName
+     * @return Buyer
+     * @throws Exception
+     */
     public static Buyer getInstance(int newBuyerId, String newGivenName, String newFamilyName) throws Exception {
         Buyer newBuyer = new Buyer(newBuyerId, newGivenName, newFamilyName);
         return newBuyer;
     }
 
+    /**
+     * Buyer Constructor
+     * @param newBuyerId
+     */
     private Buyer(int newBuyerId) {
         this.buyerId = newBuyerId;
     }
 
+    /**
+     * A get instance method to get the details from Buyer class
+     * @param newBuyerId
+     * @return Buyer
+     */
     public static Buyer getInstance(int newBuyerId) {
         Buyer newBuyer = new Buyer(newBuyerId);
         newBuyer.buyerId = newBuyerId;
         return newBuyer;
     }
 
-
+    /**
+     * Zero parameter Constructor
+     */
     private Buyer() {}
 
+    /**
+     * A get instance method to get the details from Buyer class
+     * @param newGivenName
+     * @param newFamilyName
+     * @return Buyer
+     */
     public static Buyer getInstance(String newGivenName, String newFamilyName) {
         Buyer newBuyer = new Buyer();
         if (newBuyer.setGivenName(newGivenName) && newBuyer.setFamilyName(newFamilyName)) {
@@ -43,6 +80,11 @@ public class Buyer {
         return newBuyer;
     }
 
+    /**
+     * Setter method for Buyer's Given Name
+     * @param newGivenName
+     * @return boolean
+     */
     public boolean setGivenName(String newGivenName) {
 
         boolean validGivenName = false;
@@ -53,6 +95,11 @@ public class Buyer {
         return validGivenName;
     }
 
+    /**
+     * Setter method for Buyer's Family Name
+     * @param newFamilyName
+     * @return boolean
+     */
     public boolean setFamilyName(String newFamilyName) {
 
         boolean validFamilyName = false;
@@ -63,16 +110,32 @@ public class Buyer {
         return validFamilyName;
     }
 
+    /**
+     * Getter method for Buyer's Given Name
+     * @return String
+     */
     public String getGivenName() {
         return this.givenName;
     }
 
+    /**
+     * Getter method for Buyer's Family Name
+     * @return String
+     */
     public String getFamilyName() { return this.familyName; }
 
+    /**
+     * Getter method for Buyer's ID
+     * @return int
+     */
     public int getBuyerId() {
         return this.buyerId;
     }
 
+    /**
+     * To get the description of Buyer by using the getter methods
+     * @return String
+     */
     public String description() {
         return this.getBuyerId() + " | Name: " + this.getGivenName() + " " + this.getFamilyName();
     }
