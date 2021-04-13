@@ -20,6 +20,6 @@ public class BidsManager {
         int bidIds = bidsManage.size();
         Buyer buyer = Buyer.getInstance(buyerId);
         Bid newBid = new Bid((bidIds+1), buyer, bidPrice, bidDate);
-        bidsManage.put(buyerId, newBid);
+        this.bidsManage.put(buyerId, newBid);
     }
 }

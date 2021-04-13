@@ -154,7 +154,7 @@ public class AutoShowroom {
         Date bidDate = inputBidDate();
         int vehId = inputVehId();
         for (Vehicle vehicle : vehicles) {
-            if (vehicle.getVId() != vehId) {
+            if (vehicle.getVId() == vehId) {
                 try {
                     vehicle.getManageBids().addBid(buyerId, bidPrice, bidDate);
                     System.out.println("Bid is successfully added!");
@@ -169,6 +169,9 @@ public class AutoShowroom {
                 } catch (BidException e) {
                     System.out.println(e.getMessage());
                 }
+            } else {
+                System.out.println("Invalid Vehicle ID! Vehicle's ID does not exist.");
+                break;
             }
         }
     }
