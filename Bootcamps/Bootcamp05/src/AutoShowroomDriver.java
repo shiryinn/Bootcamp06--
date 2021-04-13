@@ -3,7 +3,7 @@
  * A Driver Class to run AutoShowroom
  * @author Lim Shir Yin
  * @version 11/04/2021
- * @see {@link AutoShowroom}
+ * @see AutoShowroom
  */
 
 import java.text.ParseException;
