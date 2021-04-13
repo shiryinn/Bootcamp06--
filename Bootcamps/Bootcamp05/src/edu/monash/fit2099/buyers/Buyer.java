@@ -19,13 +19,10 @@ public class Buyer {
      * @param newFamilyName
      * @throws Exception
      */
-    private Buyer(int newBuyerId, String newGivenName, String newFamilyName) throws Exception {
-        if (setGivenName(newGivenName) && setFamilyName(newFamilyName)) {
-            this.buyerId = newBuyerId;
-        }
-        else {
-            throw new Exception("Incorrect Length of Given Name or Family Name");
-        }
+    private Buyer(int newBuyerId, String newGivenName, String newFamilyName)  {
+        this.buyerId = newBuyerId;
+        this.givenName = newGivenName;
+        this.familyName = newFamilyName;
     }
 
     /**
@@ -34,11 +31,16 @@ public class Buyer {
      * @param newGivenName
      * @param newFamilyName
      * @return Buyer
-     * @throws Exception
      */
-    public static Buyer getInstance(int newBuyerId, String newGivenName, String newFamilyName) throws Exception {
+    public static Buyer getInstance(int newBuyerId, String newGivenName, String newFamilyName) {
         Buyer newBuyer = new Buyer(newBuyerId, newGivenName, newFamilyName);
-        return newBuyer;
+        if (newBuyer.setGivenName(newGivenName) && newBuyer.setFamilyName(newFamilyName)) {
+            newBuyer.buyerId = newBuyerId;
+            return newBuyer;
+        }
+        else {
+            return null;
+        }
     }
 
     /**
@@ -76,8 +78,10 @@ public class Buyer {
         if (newBuyer.setGivenName(newGivenName) && newBuyer.setFamilyName(newFamilyName)) {
             newBuyer.givenName = newGivenName;
             newBuyer.familyName = newFamilyName;
+            return newBuyer;
+        } else {
+            return null;
         }
-        return newBuyer;
     }
 
     /**

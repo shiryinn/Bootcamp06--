@@ -86,7 +86,7 @@ public class AutoShowroom {
      * @return none
      * No exceptions is used.
      */
-    private void checkOptions(int option)  {
+    private void checkOptions(int option) {
         if (option == 1) {
             this.createSedan();
         } else if (option == 2) {
@@ -161,19 +161,18 @@ public class AutoShowroom {
 
     /**
      * To create a Buyer instance
-     * @exception Exception
      */
     public void createBuyer() {
         String[] buyerName = inputBuyerName();
         int buyerId = randomId();
-        try {
-            Buyer newBuyer = Buyer.getInstance(buyerId, buyerName[0], buyerName[1]);
+        Buyer newBuyer = Buyer.getInstance(buyerId, buyerName[0], buyerName[1]);
+        if (newBuyer != null) {
             this.buyersRec.put(buyerId, newBuyer);
             System.out.println("Buyer is successfully added!");
             System.out.println("Buyer's details:");
             System.out.println(newBuyer.description());
-        } catch (Exception e) {
-            System.out.println("Incorrect Length of Given Name or Family Name");
+        } else {
+            System.out.println("Something wrong with the buyer's values!!!");
         }
     }
 
