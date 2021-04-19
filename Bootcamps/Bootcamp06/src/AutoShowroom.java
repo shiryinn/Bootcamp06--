@@ -38,6 +38,9 @@ public class AutoShowroom {
         return this.buyersRec;
     }
 
+    private ArrayList<Integer> veh = new ArrayList<>();
+    private ArrayList<Double> price = new ArrayList<>();
+
     /**
      * To print console
      * @param display
@@ -57,14 +60,16 @@ public class AutoShowroom {
                     "\n4. Display current fleek " +
                     "\n5. Display buyers " +
                     "\n6. Add new bid " +
-                    "\n7. Exit");
+                    "\n7. Highest bid " +
+                    "\n8. Lowest Bid " +
+                    "\n9. Exit");
             System.out.print("Select an option: ");
 
             Scanner optionsChosen = new Scanner(System.in);
             int option;
             try {
                 option = optionsChosen.nextInt();
-                if (option == 7) {
+                if (option == 9) {
                     condition = false;
                     this.checkOptions(option);
                 } else {
@@ -100,6 +105,10 @@ public class AutoShowroom {
         } else if (option == 6) {
             this.createBid();
         } else if (option == 7) {
+            this.highestBidPrice();
+        } else if (option == 8) {
+            this.lowestBidPrice();
+        } else if (option == 9) {
             System.out.println("+------------------------------------------+");
             System.out.println("| Thank you for visiting FIT2099 Showroom. |");
             System.out.println("|         Goodbye! See you again!          |");
@@ -108,6 +117,50 @@ public class AutoShowroom {
             System.out.println("Please enter a valid option above!");
             this.printStatus(true);
         }
+    }
+
+    /**
+     * To show highest Bid Price
+     */
+    public void highestBidPrice() {
+        int vehId = inputVehId();
+        double highestBid = 0;
+        double bidAmount;
+        for (int i = 0; i < veh.size(); i++) {
+            if (veh.get(i) == vehId) {
+                for (int j = 0; j < price.size(); j++) {
+                    if (i == j) {
+                        bidAmount = price.get(i);
+                        if (bidAmount > highestBid) {
+                            highestBid = bidAmount;
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("Highest Bid Price: " + highestBid);
+    }
+
+    /**
+     * To show lowest Bid Price
+     */
+    public void lowestBidPrice() {
+        int vehId = inputVehId();
+        double lowestBid = price.get(0);
+        double bidAmount;
+        for (int i = 0; i < veh.size(); i++) {
+            if (veh.get(i) == vehId) {
+                for (int j = 0; j < price.size(); j++) {
+                    if (i == j) {
+                        bidAmount = price.get(i);
+                        if (bidAmount < lowestBid) {
+                            lowestBid = bidAmount;
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("Lowest Bid Price: " + lowestBid);
     }
 
     /**
@@ -193,6 +246,8 @@ public class AutoShowroom {
                     System.out.println("Bid is successfully added!");
                     Format formatter = new SimpleDateFormat("dd/MM/yyyy");
                     String formatDate = formatter.format(bidDate);
+                    this.veh.add(vehId);
+                    this.price.add(bidPrice);
                     System.out.println("Bid's details: "
                             + buyersRec.get(buyerId).description()
                             + " | Price: $" + String.format("%.2f", bidPrice)
@@ -401,7 +456,7 @@ public class AutoShowroom {
      * @return double (Bid's Price)
      * @exception Exception
      */
-    private static double inputBidPrice(){
+    private double inputBidPrice(){
         double buyerBidPrice = 0;
         boolean condition = true;
         while (condition) {
