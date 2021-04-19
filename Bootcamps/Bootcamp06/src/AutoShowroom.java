@@ -40,6 +40,8 @@ public class AutoShowroom {
 
     private ArrayList<Integer> veh = new ArrayList<>();
     private ArrayList<Double> price = new ArrayList<>();
+    private ArrayList<Vehicle> vehiclesSold = new ArrayList<>();
+
 
     /**
      * To print console
@@ -63,14 +65,15 @@ public class AutoShowroom {
                     "\n7.  Highest bid " +
                     "\n8.  Lowest Bid " +
                     "\n9.  Delete Bid " +
-                    "\n10. Exit");
+                    "\n10. Sell Vehicles " +
+                    "\n11. Exit");
             System.out.print("Select an option: ");
 
             Scanner optionsChosen = new Scanner(System.in);
             int option;
             try {
                 option = optionsChosen.nextInt();
-                if (option == 10) {
+                if (option == 12) {
                     condition = false;
                     this.checkOptions(option);
                 } else {
@@ -112,6 +115,8 @@ public class AutoShowroom {
         } else if (option == 9) {
             this.deleteBid();
         } else if (option == 10) {
+            this.sellVehicles();
+        } else if (option == 11) {
             System.out.println("+------------------------------------------+");
             System.out.println("| Thank you for visiting FIT2099 Showroom. |");
             System.out.println("|         Goodbye! See you again!          |");
@@ -119,6 +124,28 @@ public class AutoShowroom {
         } else {
             System.out.println("Please enter a valid option above!");
             this.printStatus(true);
+        }
+    }
+
+    private void sellVehicles(){
+        int vehId = inputVehId();
+        int index = 0;
+        for (Vehicle vehicle : vehicles) {
+            if (vehId == vehicle.getVId()){
+                BidsManager bids = vehicles.get(index).getManageBids();
+                HashMap<Integer, Bid> bid = bids.getBidsManage();
+                for (Integer currentBid: bid.keySet()) {
+                    bid.remove(currentBid);
+                    System.out.println("Bid of vehicle sold has been removed!");
+                }
+                vehicles.remove(index);
+                System.out.println("Vehicle sold is removed!");
+                vehiclesSold.add(vehicle);
+                System.out.println("Vehicle sold is added to successfully!");
+            } else {
+                System.out.println("Invalid Vehicle ID.");
+            }
+            index ++;
         }
     }
 
