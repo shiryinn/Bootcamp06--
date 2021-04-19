@@ -39,10 +39,10 @@ public class BidsManager {
      * @throws BidException
      * @throws ParseException
      */
-    public void addBid(int buyerId, double bidPrice, Date bidDate) throws BidException, ParseException {
-        int bidIds = bidsManage.size();
+    public void addBid(int bidId, int buyerId, double bidPrice, Date bidDate) throws BidException, ParseException {
         Buyer buyer = Buyer.getInstance(buyerId);
-        Bid newBid = new Bid((bidIds+1), buyer, bidPrice, bidDate);
-        this.bidsManage.put(buyerId, newBid);
+        Bid newBid = new Bid((bidId), buyer, bidPrice, bidDate);
+        this.bidsManage.put(bidId, newBid);
+
     }
 }

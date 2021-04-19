@@ -54,22 +54,23 @@ public class AutoShowroom {
             System.out.println("|           Welcome to            |");
             System.out.println("|      FIT2099 AutoShowroom       |");
             System.out.println("+---------------------------------+");
-            System.out.println("1. New Sedan " +
-                    "\n2. New Truck " +
-                    "\n3. Add new buyer " +
-                    "\n4. Display current fleek " +
-                    "\n5. Display buyers " +
-                    "\n6. Add new bid " +
-                    "\n7. Highest bid " +
-                    "\n8. Lowest Bid " +
-                    "\n9. Exit");
+            System.out.println("1.  New Sedan " +
+                    "\n2.  New Truck " +
+                    "\n3.  Add new buyer " +
+                    "\n4.  Display current fleek " +
+                    "\n5.  Display buyers " +
+                    "\n6.  Add new bid " +
+                    "\n7.  Highest bid " +
+                    "\n8.  Lowest Bid " +
+                    "\n9.  Delete Bid " +
+                    "\n10. Exit");
             System.out.print("Select an option: ");
 
             Scanner optionsChosen = new Scanner(System.in);
             int option;
             try {
                 option = optionsChosen.nextInt();
-                if (option == 9) {
+                if (option == 10) {
                     condition = false;
                     this.checkOptions(option);
                 } else {
@@ -109,6 +110,8 @@ public class AutoShowroom {
         } else if (option == 8) {
             this.lowestBidPrice();
         } else if (option == 9) {
+            this.deleteBid();
+        } else if (option == 10) {
             System.out.println("+------------------------------------------+");
             System.out.println("| Thank you for visiting FIT2099 Showroom. |");
             System.out.println("|         Goodbye! See you again!          |");
@@ -133,12 +136,14 @@ public class AutoShowroom {
                         bidAmount = price.get(i);
                         if (bidAmount > highestBid) {
                             highestBid = bidAmount;
+                            System.out.println("Highest Bid Price: " + highestBid);
                         }
                     }
                 }
+            } else {
+                System.out.println("Vehicle does not exist.");
             }
         }
-        System.out.println("Highest Bid Price: " + highestBid);
     }
 
     /**
@@ -155,12 +160,31 @@ public class AutoShowroom {
                         bidAmount = price.get(i);
                         if (bidAmount < lowestBid) {
                             lowestBid = bidAmount;
+                            System.out.println("Lowest Bid Price: " + lowestBid);
                         }
                     }
                 }
+            } else {
+                System.out.println("Vehicle does not exist.");
             }
         }
-        System.out.println("Lowest Bid Price: " + lowestBid);
+    }
+
+    /**
+     * To delete bid by its ID.
+     */
+    public void deleteBid() {
+        int bidId = inputBidId();
+        for (int i = 0; i < vehicles.size(); i++) {
+            BidsManager vehBids = vehicles.get(i).getManageBids();
+            HashMap<Integer, Bid> bids = vehBids.getBidsManage();
+            if (bids.containsKey(bidId)) {
+                bids.remove(bidId);
+                System.out.println("Bid is deleted successfully!");
+            } else {
+                System.out.println("Invalid Bid ID.");
+            }
+        }
     }
 
     /**
@@ -239,17 +263,19 @@ public class AutoShowroom {
         double bidPrice = inputBidPrice();
         Date bidDate = inputBidDate();
         int vehId = inputVehId();
+        int bidId = randomId();
         for (Vehicle vehicle : vehicles) {
             if (vehicle.getVId() == vehId) {
                 try {
-                    vehicle.getManageBids().addBid(buyerId, bidPrice, bidDate);
+                    vehicle.getManageBids().addBid(bidId, buyerId, bidPrice, bidDate);
                     System.out.println("Bid is successfully added!");
                     Format formatter = new SimpleDateFormat("dd/MM/yyyy");
                     String formatDate = formatter.format(bidDate);
                     this.veh.add(vehId);
                     this.price.add(bidPrice);
                     System.out.println("Bid's details: "
-                            + buyersRec.get(buyerId).description()
+                            + "Bid ID: " + bidId
+                            + " | Buyer ID: " + buyersRec.get(buyerId).description()
                             + " | Price: $" + String.format("%.2f", bidPrice)
                             + " | Date: " + formatDate);
                 } catch (ParseException e) {
@@ -495,6 +521,22 @@ public class AutoShowroom {
             }
         }
         return buyerBidDate;
+    }
+
+    private static int inputBidId() {
+        int bidId = 0;
+        boolean condition = true;
+        while (condition) {
+            try {
+                Scanner scannerBidId = new Scanner(System.in);
+                System.out.print("Bid's ID: ");
+                bidId = scannerBidId.nextInt();
+                condition = false;
+            } catch (Exception e) {
+                System.out.println("Invalid ID! Please enter a valid ID.");
+            }
+        }
+        return bidId;
     }
 }
 
