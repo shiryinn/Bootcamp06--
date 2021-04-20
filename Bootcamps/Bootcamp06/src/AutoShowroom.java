@@ -2,12 +2,6 @@
  * AutoShowroom Class
  * @author Lim Shir Yin
  * @version 11/04/2021
- * @see edu.monash.fit2099.vehicles.Vehicle
- * @see edu.monash.fit2099.buyers.Buyer
- * @see edu.monash.fit2099.bids.Bid
- * @see edu.monash.fit2099.bids.BidsManager
- * @see edu.monash.fit2099.vehicles.Sedan
- * @see edu.monash.fit2099.vehicles.Truck
  */
 
 import edu.monash.fit2099.bids.Bid;
@@ -39,7 +33,9 @@ public class AutoShowroom {
     }
 
     private ArrayList<Integer> veh = new ArrayList<>();
+
     private ArrayList<Double> price = new ArrayList<>();
+
     private ArrayList<Vehicle> vehiclesSold = new ArrayList<>();
 
 
@@ -127,6 +123,9 @@ public class AutoShowroom {
         }
     }
 
+    /**
+     * To sell Vehicles by entering the Vehicle's ID existed
+     */
     private void sellVehicles(){
         int vehId = inputVehId();
         int index = 0;
